@@ -27,12 +27,14 @@ switch (process.env['NODE_ENV']) {
   default:
     config = {
       ...baseConfig,
+      appId: `${baseConfig.appId}CapacitorCalendar`,
+      appName: 'Capacitor Calendar',
       webDir: './dist/capacitor-calendar/browser',
       ios: {
-        path: './projects/capacitor-calendar',
+        path: './projects/capacitor-calendar/ios',
       },
       android: {
-        path: './projects/capacitor-calendar',
+        path: './projects/capacitor-calendar/android',
       },
     };
     break;
