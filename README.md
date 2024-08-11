@@ -1,38 +1,27 @@
-# Mirror-to-GitLab Workflow Setup Guide
+# CapacitorPluginDemos
 
-This guide outlines the steps to integrate the mirror-to-GitLab workflow into a new repository.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
 
-## Prerequisites
-Before proceeding, ensure you have the following:
+## Development server
 
-- A GitHub repository containing the code you want to mirror to GitLab.
-- Access to both GitHub and GitLab accounts.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Setup Instructions
+## Code scaffolding
 
-### 1. Generate GitLab Personal Access Token (PAT)
-- Navigate to GitLab > User settings > Access Tokens.
-- Generate a PAT with at least the `write_repository` scope.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-### 2. Add PAT as a Repository Secret
-- Go to your GitHub repository's **Settings**.
-- Navigate to **Secrets and Variables** under **Actions**.
-- Add the generated PAT as a repository secret.
-    - Name the secret `GITLAB_MIRROR_TOKEN`.
+## Build
 
-### 3. Configure Git Identity
-- Control git config name and email in your workflow YML file (lines 28-29).
-    - Update with appropriate name and email.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-### 4. Create GitLab Host Repository
-- Create a host repository in GitLab, ideally with the same name as your GitHub repository.
+## Running unit tests
 
-### 5. Add GitLab Host Repository URL as a Repository Secret
-- Go to your GitHub repository's **Settings**.
-- Navigate to **Secrets and Variables** under **Actions**.
-- Add the host repository URL as a repository secret.
-  - Name the secret `GITLAB_REPO_URL` (example value -> "https&#58;//gitlab.com/\<USERNAME>/\<PROJECT>.git").
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Additional Notes
-- Ensure proper permissions and access controls are set up on both GitHub and GitLab repositories.
-- For any assistance or issues, refer to the documentation of GitHub Actions and GitLab.
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
