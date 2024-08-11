@@ -1,0 +1,9 @@
+{
+  "ignoreFiles": ["dist/**", "**/(ios|android)/**/*.(css|scss)"],
+  "overrides": [
+    {
+      "files": ["**/*.(css|scss)"],
+      "extends": ["@ebarooni/stylelint-config"]
+    }
+  ]
+}
