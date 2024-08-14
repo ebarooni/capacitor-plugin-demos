@@ -1,12 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { test, describe, expect, beforeEach } from 'vitest';
+import { By } from '@angular/platform-browser';
+import { appConfig } from './app.config';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule(
+      Object.assign({}, appConfig, {
+        imports: [AppComponent],
+      }),
+    ).compileComponents();
+
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
   });
@@ -15,15 +23,13 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  test(`should have the 'capacitor-calendar' title`, () => {
-    expect(component.title).toEqual('capacitor-calendar');
+  test(`should have the 'ion-app' element`, () => {
+    expect(fixture.debugElement.query(By.css('ion-app'))).toBeTruthy();
   });
 
-  test('should render title', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Hello, capacitor-calendar',
-    );
+  test(`should have the 'ion-router-outlet' element`, () => {
+    expect(
+      fixture.debugElement.query(By.css('ion-router-outlet')),
+    ).toBeTruthy();
   });
 });
