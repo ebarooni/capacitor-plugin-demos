@@ -39,6 +39,7 @@
     "@capacitor/ios": "^6.1.2",
     "@ebarooni/capacitor-calendar": "^6.7.0",
     "@ionic/angular": "^8.2.6",
+    "@ngrx/component": "^18.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
