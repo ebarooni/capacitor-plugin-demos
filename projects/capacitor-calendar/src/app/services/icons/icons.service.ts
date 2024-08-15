@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { addIcons } from 'ionicons';
-import { codeSlash } from 'ionicons/icons';
+import { codeSlash, clipboard, settings } from 'ionicons/icons';
 
 @Injectable({ providedIn: 'root' })
 export class IconsService {
-  private static readonly ICONS = { codeSlash };
+  private static readonly ICONS = { codeSlash, clipboard, settings };
 
   registerIcons(): void {
     addIcons(IconsService.ICONS);
