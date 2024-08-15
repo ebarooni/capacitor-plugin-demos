@@ -71,7 +71,7 @@ describe('AppComponent', () => {
   test.each([true, false])(
     'should toggle dark class on document body',
     (isDarkMode) => {
-      toggleSpy = vi.spyOn(document.body.classList, 'toggle');
+      toggleSpy = vi.spyOn(document.documentElement.classList, 'toggle');
       const initialIsDarkMode = isDarkModeSubject.getValue();
       scheduler.run(({ cold, expectObservable, flush }) => {
         cold('-a').subscribe(() => isDarkModeSubject.next(isDarkMode));
@@ -80,11 +80,9 @@ describe('AppComponent', () => {
           b: isDarkMode,
         });
         flush();
-        expect(document.body.classList.toggle).toHaveBeenNthCalledWith(
-          2,
-          'dark',
-          isDarkMode,
-        );
+        expect(
+          document.documentElement.classList.toggle,
+        ).toHaveBeenNthCalledWith(2, 'ion-palette-dark', isDarkMode);
       });
     },
   );

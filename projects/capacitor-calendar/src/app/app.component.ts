@@ -14,6 +14,8 @@ import { tap } from 'rxjs';
 export class AppComponent {
   private readonly themeService = inject(ThemeService);
   readonly isDarkMode$ = this.themeService.isDarkMode$.pipe(
-    tap((isDarkMode) => document.body.classList.toggle('dark', isDarkMode)),
+    tap((isDarkMode) =>
+      document.documentElement.classList.toggle('ion-palette-dark', isDarkMode),
+    ),
   );
 }
