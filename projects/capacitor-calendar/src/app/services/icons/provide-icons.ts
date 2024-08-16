@@ -1,7 +1,7 @@
-import { APP_INITIALIZER } from '@angular/core';
+import { APP_INITIALIZER, Provider } from '@angular/core';
 import { IconsService } from './icons.service';
 
-export function provideIcons() {
+export function provideIcons(): Provider {
   return {
     provide: APP_INITIALIZER,
     deps: [IconsService],

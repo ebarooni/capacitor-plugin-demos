@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { provideIcons } from './services/icons/provide-icons';
+import { provideStore } from './services/store/provide-store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
       mode: 'ios',
     }),
     provideIcons(),
+    provideStore(),
   ],
 };
