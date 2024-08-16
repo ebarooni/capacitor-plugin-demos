@@ -17,6 +17,11 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { NgOptimizedImage } from '@angular/common';
+import {
+  PlatformFilter,
+  StoreService,
+} from '../../services/store/store.service';
+import { LetDirective } from '@ngrx/component';
 
 @Component({
   selector: 'app-api',
@@ -39,9 +44,12 @@ import { NgOptimizedImage } from '@angular/common';
     IonText,
     IonNote,
     NgOptimizedImage,
+    LetDirective,
   ],
   standalone: true,
 })
 export class ApiComponent {
-  readonly filters = ['All', 'iOS', 'Android'];
+  readonly availablePlatforms = <PlatformFilter[]>['All', 'iOS', 'Android'];
+
+  constructor(readonly storeService: StoreService) {}
 }

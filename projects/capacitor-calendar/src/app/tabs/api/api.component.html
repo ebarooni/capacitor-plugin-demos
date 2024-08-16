@@ -15,9 +15,17 @@
     </ion-toolbar>
 
     <ion-toolbar [color]="'light'">
-      <div class="px-2 flex gap-2">
-        @for (filter of filters; track $index) {
-          <ion-chip [color]="'medium'">{{ filter }}</ion-chip>
+      <div
+        *ngrxLet="storeService.platformFilter$ as platformFilter"
+        class="px-2 flex gap-2"
+      >
+        @for (platform of availablePlatforms; track $index) {
+          <ion-chip
+            class="border-solid border-1 transition-colors transition-duration-150 transition-ease-in"
+            [color]="platformFilter === platform ? 'success' : 'medium'"
+            (click)="storeService.setPlatformFilter(platform)"
+            >{{ platform }}</ion-chip
+          >
         }
       </div>
     </ion-toolbar>
@@ -26,7 +34,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-list [inset]="true" class="my-0">
+        <ion-list [inset]="true" class="my-0 shadow-1">
           <ion-item>
             <ion-avatar aria-hidden="true" [slot]="'start'">
               <img
@@ -48,7 +56,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-list [inset]="true">
+        <ion-list [inset]="true" class="shadow-1">
           <ion-item></ion-item>
         </ion-list>
       </ion-col>
