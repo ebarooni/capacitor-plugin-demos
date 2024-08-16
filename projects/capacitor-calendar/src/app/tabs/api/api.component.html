@@ -12,11 +12,11 @@
       <ion-searchbar [showCancelButton]="'focus'"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar>
-      <ion-buttons [slot]="'start'">
-        @for (filter of ["All", "iOS", "Android"]; track $index) {
-          <ion-chip [color]="'success'">{{ filter }}</ion-chip>
+      <div class="px-2 flex gap-2">
+        @for (filter of filters; track $index) {
+          <ion-chip [color]="'medium'">{{ filter }}</ion-chip>
         }
-      </ion-buttons>
+      </div>
     </ion-toolbar>
   </ion-header>
 </ion-content>

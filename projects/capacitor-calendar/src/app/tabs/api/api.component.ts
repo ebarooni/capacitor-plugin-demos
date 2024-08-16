@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  IonButtons,
   IonChip,
   IonContent,
   IonHeader,
@@ -13,15 +12,9 @@ import {
   selector: 'app-api',
   templateUrl: './api.component.html',
   styleUrls: ['./api.component.scss'],
-  imports: [
-    IonHeader,
-    IonContent,
-    IonToolbar,
-    IonTitle,
-    IonSearchbar,
-    IonChip,
-    IonButtons,
-  ],
+  imports: [IonHeader, IonContent, IonToolbar, IonTitle, IonSearchbar, IonChip],
   standalone: true,
 })
-export class ApiComponent {}
+export class ApiComponent {
+  readonly filters = ['All', 'iOS', 'Android'];
+}
