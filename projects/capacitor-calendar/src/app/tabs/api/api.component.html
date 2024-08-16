@@ -3,15 +3,18 @@
     <ion-title>API</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
+
+<ion-content [color]="'light'">
+  <ion-header collapse="condense" class="p-2">
+    <ion-toolbar [color]="'light'">
       <ion-title size="large">API</ion-title>
     </ion-toolbar>
-    <ion-toolbar>
+
+    <ion-toolbar [color]="'light'">
       <ion-searchbar [showCancelButton]="'focus'"></ion-searchbar>
     </ion-toolbar>
-    <ion-toolbar>
+
+    <ion-toolbar [color]="'light'">
       <div class="px-2 flex gap-2">
         @for (filter of filters; track $index) {
           <ion-chip [color]="'medium'">{{ filter }}</ion-chip>
@@ -19,4 +22,36 @@
       </div>
     </ion-toolbar>
   </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list [inset]="true">
+          <ion-item>
+            <ion-avatar aria-hidden="true" [slot]="'start'">
+              <img
+                alt=""
+                ngSrc="avatar-logo-light.svg"
+                [width]="48"
+                [height]="48"
+              />
+            </ion-avatar>
+            <ion-label class="flex flex-column gap-1">
+              <ion-text class="font-semibold text-lg"
+                >&#64;ebarooni/capacitor-calendar</ion-text
+              >
+              <ion-note color="medium" class="ion-text-wrap">v6.7.1</ion-note>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list [inset]="true">
+          <ion-item></ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
