@@ -63,6 +63,9 @@
               },
               {
                 "input": "projects/capacitor-calendar/src/theme/variables.css"
+              },
+              {
+                "input": "node_modules/primeflex/primeflex.css"
               }
             ],
             "scripts": []
