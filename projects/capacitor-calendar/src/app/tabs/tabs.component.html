@@ -7,6 +7,11 @@
     <ion-tab-button tab="logs">
       <ion-icon name="clipboard"></ion-icon>
       <ion-label>Logs</ion-label>
+      <ng-container *ngrxLet="storeService.unreadLogs$ as unreadLogs">
+        @if (unreadLogs) {
+          <ion-badge>{{ unreadLogs }}</ion-badge>
+        }
+      </ng-container>
     </ion-tab-button>
     <ion-tab-button tab="settings">
       <ion-icon name="settings"></ion-icon>

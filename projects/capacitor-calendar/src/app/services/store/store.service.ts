@@ -38,4 +38,6 @@ export class StoreService extends ComponentStore<AppState> {
     unreadLogs: state.unreadLogs + 1,
     logs: [...state.logs, log],
   }));
+
+  readonly unreadLogs$ = this.select((state) => state.unreadLogs);
 }
