@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  IonAvatar,
   IonChip,
   IonCol,
   IonContent,
@@ -22,6 +21,7 @@ import {
   StoreService,
 } from '../../services/store/store.service';
 import { LetDirective } from '@ngrx/component';
+import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-api',
@@ -39,7 +39,6 @@ import { LetDirective } from '@ngrx/component';
     IonRow,
     IonCol,
     IonItem,
-    IonAvatar,
     IonLabel,
     IonText,
     IonNote,
@@ -51,5 +50,8 @@ import { LetDirective } from '@ngrx/component';
 export class ApiComponent {
   readonly availablePlatforms = <PlatformFilter[]>['All', 'iOS', 'Android'];
 
-  constructor(readonly storeService: StoreService) {}
+  constructor(
+    readonly storeService: StoreService,
+    readonly themeService: ThemeService,
+  ) {}
 }
