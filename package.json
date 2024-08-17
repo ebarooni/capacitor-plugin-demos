@@ -8,6 +8,7 @@
     "watch": "npx ng build --watch --configuration development",
     "test:capacitor-calendar": "npx ng test --project capacitor-calendar",
     "test": "npx ng test",
+    "serve:capacitor-calendar": "npx ng serve --project capacitor-calendar",
     "lint:style": "npx stylelint \"**/*.(css|scss)\"",
     "fmt:style": "npx stylelint \"**/*.(css|scss)\" --fix",
     "prettier:check": "npx prettier . --check",
