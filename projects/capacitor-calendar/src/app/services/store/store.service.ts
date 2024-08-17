@@ -6,6 +6,8 @@ export type PlatformFilter = 'All' | 'iOS' | 'Android';
 
 export interface AppState {
   platformFilter: PlatformFilter;
+  logs: string[];
+  unreadLogs: number;
 }
 
 @Injectable({
@@ -17,7 +19,7 @@ export class StoreService extends ComponentStore<AppState> {
   }
 
   init(): void {
-    this.setState({ platformFilter: 'All' });
+    this.setState({ platformFilter: 'All', logs: [], unreadLogs: 0 });
   }
 
   readonly platformFilter$: Observable<PlatformFilter> = this.select(
@@ -26,7 +28,14 @@ export class StoreService extends ComponentStore<AppState> {
 
   readonly setPlatformFilter = this.updater(
     (state, platform: PlatformFilter) => ({
+      ...state,
       platformFilter: platform,
     }),
   );
+
+  readonly addLog = this.updater((state, log: string) => ({
+    ...state,
+    unreadLogs: state.unreadLogs + 1,
+    logs: [...state.logs, log],
+  }));
 }
