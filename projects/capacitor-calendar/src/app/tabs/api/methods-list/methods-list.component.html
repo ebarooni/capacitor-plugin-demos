@@ -1,0 +1,48 @@
+<ion-list [inset]="true" class="my-0 shadow-1">
+  <ion-item [detail]="true" (click)="permissionsModal.present()">
+    <ion-label class="flex flex-column gap-1">
+      <ion-text class="font-medium text-lg">{{
+        calendarService.checkPermission.name
+      }}</ion-text>
+      <ion-note color="medium" class="text-sm">Since 0.0.1</ion-note>
+    </ion-label>
+    <div class="flex gap-2" [slot]="'end'">
+      <ion-button [color]="'primary'">
+        <ion-icon [slot]="'icon-only'" [name]="'logo-apple'"></ion-icon>
+      </ion-button>
+      <ion-button [color]="'success'">
+        <ion-icon [slot]="'icon-only'" [name]="'logo-android'"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-item>
+</ion-list>
+
+<ion-modal #permissionsModal (didDismiss)="onPermissionsModalDismiss($event)">
+  <ng-template>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="permissionsModal.dismiss(null, 'cancel')"
+          >Cancel</ion-button
+        >
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button
+          (click)="permissionsModal.dismiss(permissionPicker.value, 'confirm')"
+          >Done</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-picker>
+      <ion-picker-column #permissionPicker [value]="">
+        <ion-picker-column-option [value]="" [disabled]="true"
+          >--</ion-picker-column-option
+        >
+        @for (permission of pluginPermissions; track $index) {
+          <ion-picker-column-option [value]="permission">{{
+            permission
+          }}</ion-picker-column-option>
+        }
+      </ion-picker-column>
+    </ion-picker>
+  </ng-template>
+</ion-modal>
