@@ -22,11 +22,11 @@ import {
 } from '../../services/store/store.service';
 import { LetDirective } from '@ngrx/component';
 import { ThemeService } from '../../services/theme/theme.service';
+import { MethodsListComponent } from './methods-list/methods-list.component';
 
 @Component({
   selector: 'app-api',
   templateUrl: './api.component.html',
-  styleUrls: ['./api.component.scss'],
   imports: [
     IonHeader,
     IonContent,
@@ -44,6 +44,7 @@ import { ThemeService } from '../../services/theme/theme.service';
     IonNote,
     NgOptimizedImage,
     LetDirective,
+    MethodsListComponent,
   ],
   standalone: true,
 })
