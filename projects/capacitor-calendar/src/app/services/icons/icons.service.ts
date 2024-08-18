@@ -6,6 +6,8 @@ import {
   settings,
   logoApple,
   logoAndroid,
+  logoNpm,
+  moon,
 } from 'ionicons/icons';
 
 @Injectable({ providedIn: 'root' })
@@ -16,6 +18,8 @@ export class IconsService {
     settings,
     logoApple,
     logoAndroid,
+    logoNpm,
+    moon,
   };
 
   registerIcons(): void {

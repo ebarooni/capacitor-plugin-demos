@@ -20,12 +20,32 @@
       <ion-col>
         <ion-list [inset]="true" class="shadow-1">
           <ion-item *ngrxLet="themeService.isDarkMode$ as isDarkMode">
+            <ion-icon
+              [name]="'moon'"
+              [slot]="'start'"
+              [color]="'warning'"
+            ></ion-icon>
             <ion-toggle
               [color]="'success'"
               [value]="isDarkMode"
               (ionChange)="themeService.enableDarkMode(!isDarkMode)"
               >Dark mode</ion-toggle
             >
+          </ion-item>
+          <ion-item
+            (click)="
+              openLink(
+                'https://www.npmjs.com/package/@ebarooni/capacitor-calendar'
+              )
+            "
+            [button]="true"
+          >
+            <ion-icon
+              [name]="'logo-npm'"
+              [slot]="'start'"
+              [color]="'danger'"
+            ></ion-icon>
+            <ion-label>NPM Package</ion-label>
           </ion-item>
         </ion-list>
       </ion-col>

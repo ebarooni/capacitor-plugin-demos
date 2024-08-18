@@ -4,7 +4,9 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonItem,
+  IonLabel,
   IonList,
   IonRow,
   IonTitle,
@@ -14,6 +16,7 @@ import {
 import { AvatarBannerComponent } from '../../shared-components/avatar-banner/avatar-banner.component';
 import { ThemeService } from '../../services/theme/theme.service';
 import { LetDirective } from '@ngrx/component';
+import { Browser, OpenOptions } from '@capacitor/browser';
 
 @Component({
   selector: 'app-settings',
@@ -32,8 +35,17 @@ import { LetDirective } from '@ngrx/component';
     IonItem,
     IonToggle,
     LetDirective,
+    IonIcon,
+    IonLabel,
   ],
 })
 export class SettingsComponent {
   constructor(readonly themeService: ThemeService) {}
+
+  openLink(url: string): void {
+    const openOptions: OpenOptions = { url: url };
+    Browser.open(openOptions).catch(() =>
+      console.warn('failed to open the given url'),
+    );
+  }
 }
