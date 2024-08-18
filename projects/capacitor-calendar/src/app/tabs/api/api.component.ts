@@ -21,8 +21,8 @@ import {
   StoreService,
 } from '../../services/store/store.service';
 import { LetDirective } from '@ngrx/component';
-import { ThemeService } from '../../services/theme/theme.service';
 import { MethodsListComponent } from './methods-list/methods-list.component';
+import { AvatarBannerComponent } from '../../shared-components/avatar-banner/avatar-banner.component';
 
 @Component({
   selector: 'app-api',
@@ -45,14 +45,12 @@ import { MethodsListComponent } from './methods-list/methods-list.component';
     NgOptimizedImage,
     LetDirective,
     MethodsListComponent,
+    AvatarBannerComponent,
   ],
   standalone: true,
 })
 export class ApiComponent {
   readonly availablePlatforms = <PlatformFilter[]>['All', 'iOS', 'Android'];
 
-  constructor(
-    readonly storeService: StoreService,
-    readonly themeService: ThemeService,
-  ) {}
+  constructor(readonly storeService: StoreService) {}
 }
