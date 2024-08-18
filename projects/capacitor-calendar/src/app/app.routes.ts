@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { TabsComponent } from './tabs/tabs.component';
 import { ApiComponent } from './tabs/api/api.component';
+import { SettingsComponent } from './tabs/settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -10,6 +11,10 @@ export const routes: Routes = [
       {
         path: 'api',
         component: ApiComponent,
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
       },
       {
         path: '',
