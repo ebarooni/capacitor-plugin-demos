@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [color]="'light'">
-  <ion-header collapse="condense" class="p-2">
+  <ion-header collapse="condense" class="p-1">
     <ion-toolbar [color]="'light'">
       <ion-title size="large">API</ion-title>
     </ion-toolbar>
@@ -17,7 +17,7 @@
     <ion-toolbar [color]="'light'">
       <div
         *ngrxLet="storeService.platformFilter$ as platformFilter"
-        class="px-2 flex gap-2"
+        class="px-1 flex gap-2"
       >
         @for (platform of availablePlatforms; track $index) {
           <ion-chip
