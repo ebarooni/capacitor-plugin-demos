@@ -8,6 +8,8 @@ import {
   logoAndroid,
   logoNpm,
   moon,
+  cube,
+  exitOutline,
 } from 'ionicons/icons';
 
 @Injectable({ providedIn: 'root' })
@@ -20,6 +22,8 @@ export class IconsService {
     logoAndroid,
     logoNpm,
     moon,
+    cube,
+    exitOutline,
   };
 
   registerIcons(): void {

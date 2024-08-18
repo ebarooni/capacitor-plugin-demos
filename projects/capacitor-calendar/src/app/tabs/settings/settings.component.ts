@@ -17,6 +17,8 @@ import { AvatarBannerComponent } from '../../shared-components/avatar-banner/ava
 import { ThemeService } from '../../services/theme/theme.service';
 import { LetDirective } from '@ngrx/component';
 import { Browser, OpenOptions } from '@capacitor/browser';
+import { catchError, from, map, of } from 'rxjs';
+import { App, AppInfo } from '@capacitor/app';
 
 @Component({
   selector: 'app-settings',
@@ -40,6 +42,12 @@ import { Browser, OpenOptions } from '@capacitor/browser';
   ],
 })
 export class SettingsComponent {
+  readonly appVersion$ = from(App.getInfo()).pipe(
+    catchError(() => of({ version: '0.0.0' } as AppInfo)),
+    map((state) => state.version),
+    map((version) => `v${version}`),
+  );
+
   constructor(readonly themeService: ThemeService) {}
 
   openLink(url: string): void {
