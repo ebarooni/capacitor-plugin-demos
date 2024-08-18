@@ -9,7 +9,7 @@
       <ion-label>Logs</ion-label>
       <ng-container *ngrxLet="storeService.unreadLogs$ as unreadLogs">
         @if (unreadLogs) {
-          <ion-badge>{{ unreadLogs }}</ion-badge>
+          <ion-badge [color]="'danger'">{{ unreadLogs }}</ion-badge>
         }
       </ng-container>
     </ion-tab-button>
