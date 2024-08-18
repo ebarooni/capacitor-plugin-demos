@@ -9,4 +9,26 @@
       <ion-title size="large">Settings</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <app-avatar-banner></app-avatar-banner>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list [inset]="true" class="shadow-1">
+          <ion-item *ngrxLet="themeService.isDarkMode$ as isDarkMode">
+            <ion-toggle
+              [color]="'success'"
+              [value]="isDarkMode"
+              (ionChange)="themeService.enableDarkMode(!isDarkMode)"
+              >Dark mode</ion-toggle
+            >
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
