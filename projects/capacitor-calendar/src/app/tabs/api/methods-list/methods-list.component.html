@@ -1,4 +1,4 @@
-<ion-list [inset]="true" class="my-2 mx-2 shadow-1">
+<app-base-ion-list>
   <ion-item [detail]="true" (click)="permissionsModal.present()">
     <ion-label class="flex flex-column gap-1">
       <ion-text class="font-medium text-lg">{{
@@ -15,7 +15,7 @@
       </ion-button>
     </div>
   </ion-item>
-</ion-list>
+</app-base-ion-list>
 
 <ion-modal #permissionsModal (didDismiss)="onPermissionsModalDismiss($event)">
   <ng-template>

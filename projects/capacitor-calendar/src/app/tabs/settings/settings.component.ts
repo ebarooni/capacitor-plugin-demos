@@ -7,7 +7,6 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
-  IonList,
   IonRow,
   IonTitle,
   IonToggle,
@@ -20,6 +19,7 @@ import { Browser, OpenOptions } from '@capacitor/browser';
 import { catchError, from, map, of } from 'rxjs';
 import { App, AppInfo } from '@capacitor/app';
 import { RouterLink } from '@angular/router';
+import { BaseIonListComponent } from '../../shared-components/base-ion-list/base-ion-list.component';
 
 @Component({
   selector: 'app-settings',
@@ -34,13 +34,13 @@ import { RouterLink } from '@angular/router';
     IonRow,
     IonCol,
     AvatarBannerComponent,
-    IonList,
     IonItem,
     IonToggle,
     LetDirective,
     IonIcon,
     IonLabel,
     RouterLink,
+    BaseIonListComponent,
   ],
 })
 export class SettingsComponent {

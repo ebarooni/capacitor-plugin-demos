@@ -18,7 +18,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-list [inset]="true" class="shadow-1 my-2 mx-2">
+        <app-base-ion-list>
           <ion-item *ngrxLet="themeService.isDarkMode$ as isDarkMode">
             <ion-icon
               [name]="'moon'"
@@ -65,7 +65,7 @@
             <ion-icon [name]="'cube'" [slot]="'start'"></ion-icon>
             <ion-label class="text-center">{{ version }}</ion-label>
           </ion-item>
-        </ion-list>
+        </app-base-ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>

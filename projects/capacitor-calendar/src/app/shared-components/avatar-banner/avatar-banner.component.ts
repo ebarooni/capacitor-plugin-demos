@@ -1,14 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  IonItem,
-  IonLabel,
-  IonList,
-  IonNote,
-  IonText,
-} from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { IonItem, IonLabel, IonNote, IonText } from '@ionic/angular/standalone';
 import { LetDirective } from '@ngrx/component';
 import { NgOptimizedImage } from '@angular/common';
 import { ThemeService } from '../../services/theme/theme.service';
+import { BaseIonListComponent } from '../base-ion-list/base-ion-list.component';
 
 @Component({
   selector: 'app-avatar-banner',
@@ -16,11 +11,11 @@ import { ThemeService } from '../../services/theme/theme.service';
   imports: [
     IonItem,
     IonLabel,
-    IonList,
     IonNote,
     IonText,
     LetDirective,
     NgOptimizedImage,
+    BaseIonListComponent,
   ],
   standalone: true,
 })

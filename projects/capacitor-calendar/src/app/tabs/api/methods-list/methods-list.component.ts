@@ -6,7 +6,6 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
-  IonList,
   IonModal,
   IonNote,
   IonPicker,
@@ -16,6 +15,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { PluginPermission } from '@ebarooni/capacitor-calendar';
+import { BaseIonListComponent } from '../../../shared-components/base-ion-list/base-ion-list.component';
 
 @Component({
   selector: 'app-methods-list',
@@ -27,7 +27,6 @@ import { PluginPermission } from '@ebarooni/capacitor-calendar';
     IonIcon,
     IonItem,
     IonLabel,
-    IonList,
     IonNote,
     IonText,
     IonModal,
@@ -36,6 +35,7 @@ import { PluginPermission } from '@ebarooni/capacitor-calendar';
     IonPicker,
     IonPickerColumn,
     IonPickerColumnOption,
+    BaseIonListComponent,
   ],
   providers: [CalendarService],
 })
