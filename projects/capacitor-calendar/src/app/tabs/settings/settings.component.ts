@@ -19,6 +19,7 @@ import { LetDirective } from '@ngrx/component';
 import { Browser, OpenOptions } from '@capacitor/browser';
 import { catchError, from, map, of } from 'rxjs';
 import { App, AppInfo } from '@capacitor/app';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -39,6 +40,7 @@ import { App, AppInfo } from '@capacitor/app';
     LetDirective,
     IonIcon,
     IonLabel,
+    RouterLink,
   ],
 })
 export class SettingsComponent {

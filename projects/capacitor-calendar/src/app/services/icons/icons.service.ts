@@ -10,6 +10,7 @@ import {
   moon,
   cube,
   exitOutline,
+  shieldCheckmark,
 } from 'ionicons/icons';
 
 @Injectable({ providedIn: 'root' })
@@ -24,6 +25,7 @@ export class IconsService {
     moon,
     cube,
     exitOutline,
+    shieldCheckmark,
   };
 
   registerIcons(): void {

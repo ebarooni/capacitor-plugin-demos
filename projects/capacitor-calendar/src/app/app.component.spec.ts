@@ -28,7 +28,7 @@ describe('AppComponent', () => {
     isDarkModeSubject = new BehaviorSubject<boolean>(false);
     themeService = {
       isDarkMode$: isDarkModeSubject.asObservable(),
-    };
+    } as ThemeService;
 
     await TestBed.configureTestingModule(
       Object.assign({}, appConfig, {
