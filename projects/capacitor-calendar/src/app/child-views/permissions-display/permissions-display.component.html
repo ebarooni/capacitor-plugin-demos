@@ -1,1 +1,59 @@
-<ion-content [color]="'light'"></ion-content>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons [slot]="'start'">
+      <ion-back-button [defaultHref]="'settings'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Permissions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [color]="'light'">
+  <ion-grid class="py-3">
+    <ion-row>
+      <ion-col>
+        <app-base-ion-list>
+          <ion-list-header>
+            <ion-label [color]="'medium'">Status</ion-label>
+          </ion-list-header>
+
+          <ng-container
+            *ngrxLet="storeService.permissionsState$ as permissionsState"
+          >
+            @for (permission of permissions; track $index) {
+              <ion-item>
+                <ion-label>{{ permission }}</ion-label>
+                @switch (permissionsState[permission]) {
+                  @case ("denied") {
+                    <ion-chip [color]="'danger'">{{
+                      permissionsState[permission]
+                    }}</ion-chip>
+                  }
+                  @case ("granted") {
+                    <ion-chip [color]="'success'">{{
+                      permissionsState[permission]
+                    }}</ion-chip>
+                  }
+                  @default {
+                    <ion-chip [color]="'warning'">{{
+                      permissionsState[permission]
+                    }}</ion-chip>
+                  }
+                }
+              </ion-item>
+            }
+          </ng-container>
+        </app-base-ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <app-base-ion-list>
+          <ion-list-header>
+            <ion-label [color]="'medium'">Request</ion-label>
+          </ion-list-header>
+        </app-base-ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
