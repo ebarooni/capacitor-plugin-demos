@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { TabsComponent } from './tabs/tabs.component';
 import { ApiComponent } from './tabs/api/api.component';
 import { SettingsComponent } from './tabs/settings/settings.component';
+import { PermissionsDisplayComponent } from './child-views/permissions-display/permissions-display.component';
 
 export const routes: Routes = [
   {
@@ -14,7 +15,20 @@ export const routes: Routes = [
       },
       {
         path: 'settings',
-        component: SettingsComponent,
+        children: [
+          {
+            path: 'permissions',
+            component: PermissionsDisplayComponent,
+          },
+          {
+            path: '',
+            component: SettingsComponent,
+          },
+          {
+            path: '**',
+            redirectTo: '',
+          },
+        ],
       },
       {
         path: '',
@@ -25,6 +39,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/api',
+    redirectTo: 'api',
   },
 ];
