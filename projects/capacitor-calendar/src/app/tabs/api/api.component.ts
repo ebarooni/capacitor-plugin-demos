@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import {
+  IonButton,
+  IonButtons,
   IonChip,
   IonCol,
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonItem,
   IonLabel,
   IonList,
@@ -23,6 +26,7 @@ import {
 import { LetDirective } from '@ngrx/component';
 import { MethodsListComponent } from './methods-list/methods-list.component';
 import { AvatarBannerComponent } from '../../shared-components/avatar-banner/avatar-banner.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-api',
@@ -46,6 +50,10 @@ import { AvatarBannerComponent } from '../../shared-components/avatar-banner/ava
     LetDirective,
     MethodsListComponent,
     AvatarBannerComponent,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    RouterLink,
   ],
   standalone: true,
 })

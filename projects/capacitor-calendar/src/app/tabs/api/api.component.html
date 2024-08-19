@@ -1,6 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>API</ion-title>
+    <ion-buttons [slot]="'end'">
+      <ion-button
+        [size]="'small'"
+        [color]="'success'"
+        [routerLink]="'/settings/permissions'"
+      >
+        <ion-icon [slot]="'icon-only'" [name]="'shield-checkmark'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
