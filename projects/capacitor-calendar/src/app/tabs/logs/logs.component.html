@@ -14,8 +14,21 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <app-base-ion-list>
-          <ion-item></ion-item>
+        <app-base-ion-list *ngrxLet="storeService.logs$ as logs">
+          @for (log of logs; track $index) {
+            <ion-item>
+              <ion-label>{{ log.message }}</ion-label>
+              <ion-note [slot]="'end'">
+                {{ log.timestamp | date: "HH:mm:ss" }}
+              </ion-note>
+            </ion-item>
+          } @empty {
+            <ion-item class="text-center">
+              <ion-label [color]="'tertiary'"
+                >Invoke a method from the API tab to see the logs</ion-label
+              >
+            </ion-item>
+          }
         </app-base-ion-list>
       </ion-col>
     </ion-row>

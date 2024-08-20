@@ -8,7 +8,7 @@ export type PlatformFilter = 'All' | 'iOS' | 'Android';
 
 export interface AppState {
   platformFilter: PlatformFilter;
-  logs: string[];
+  logs: { message: string; timestamp: number }[];
   unreadLogs: number;
   permissionsState: {
     [PluginPermission.WRITE_CALENDAR]: PermissionState;
@@ -54,10 +54,17 @@ export class StoreService extends ComponentStore<AppState> {
   readonly addLog = this.updater((state, log: string) => ({
     ...state,
     unreadLogs: state.unreadLogs + 1,
-    logs: [...state.logs, log],
+    logs: [...state.logs, { message: log, timestamp: Date.now() }],
   }));
 
   readonly unreadLogs$ = this.select((state) => state.unreadLogs);
+
+  readonly logs$ = this.select((state) => state.logs);
+
+  readonly setUnreadLogs = this.updater((state, numUnread: number) => ({
+    ...state,
+    unreadLogs: numUnread,
+  }));
 
   readonly permissionsState$: Observable<AppState['permissionsState']> =
     this.select((state) => state.permissionsState);
