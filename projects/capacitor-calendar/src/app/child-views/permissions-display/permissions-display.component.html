@@ -52,6 +52,77 @@
           <ion-list-header>
             <ion-label [color]="'medium'">Request</ion-label>
           </ion-list-header>
+
+          <ion-item
+            [button]="true"
+            (click)="calendarService.requestWriteOnlyCalendarAccess()"
+          >
+            <ion-label class="font-italic">{{
+              calendarService.requestWriteOnlyCalendarAccess.name
+            }}</ion-label>
+            <div class="flex gap-2" [slot]="'end'">
+              <ion-button [color]="'primary'">
+                <ion-icon [slot]="'icon-only'" [name]="'logo-apple'"></ion-icon>
+              </ion-button>
+              <ion-button [color]="'success'">
+                <ion-icon
+                  [slot]="'icon-only'"
+                  [name]="'logo-android'"
+                ></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
+
+          <ion-item
+            [button]="true"
+            (click)="calendarService.requestReadOnlyCalendarAccess()"
+          >
+            <ion-label class="font-italic">{{
+              calendarService.requestReadOnlyCalendarAccess.name
+            }}</ion-label>
+            <div class="flex gap-2" [slot]="'end'">
+              <ion-button [color]="'success'">
+                <ion-icon
+                  [slot]="'icon-only'"
+                  [name]="'logo-android'"
+                ></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
+
+          <ion-item
+            [button]="true"
+            (click)="calendarService.requestFullCalendarAccess()"
+          >
+            <ion-label class="font-italic">{{
+              calendarService.requestFullCalendarAccess.name
+            }}</ion-label>
+            <div class="flex gap-2" [slot]="'end'">
+              <ion-button [color]="'primary'">
+                <ion-icon [slot]="'icon-only'" [name]="'logo-apple'"></ion-icon>
+              </ion-button>
+              <ion-button [color]="'success'">
+                <ion-icon
+                  [slot]="'icon-only'"
+                  [name]="'logo-android'"
+                ></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
+
+          <ion-item
+            [button]="true"
+            (click)="calendarService.requestFullRemindersAccess()"
+          >
+            <ion-label class="font-italic">{{
+              calendarService.requestFullRemindersAccess.name
+            }}</ion-label>
+            <div class="flex gap-2" [slot]="'end'">
+              <ion-button [color]="'primary'">
+                <ion-icon [slot]="'icon-only'" [name]="'logo-apple'"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
         </app-base-ion-list>
       </ion-col>
     </ion-row>

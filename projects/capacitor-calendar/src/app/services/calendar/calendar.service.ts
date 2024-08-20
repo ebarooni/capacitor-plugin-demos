@@ -15,6 +15,68 @@ export class CalendarService {
     );
   }
 
+  requestWriteOnlyCalendarAccess(): void {
+    this.collectResults(() => {
+      return CapacitorCalendar.requestWriteOnlyCalendarAccess()
+        .then((result) => {
+          this.storeService.setPermissionsState({
+            [PluginPermission.WRITE_CALENDAR]: result.result,
+          });
+          return result;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  }
+
+  requestReadOnlyCalendarAccess(): void {
+    this.collectResults(() => {
+      return CapacitorCalendar.requestReadOnlyCalendarAccess()
+        .then((result) => {
+          this.storeService.setPermissionsState({
+            [PluginPermission.READ_CALENDAR]: result.result,
+          });
+          return result;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  }
+
+  requestFullCalendarAccess(): void {
+    this.collectResults(() => {
+      return CapacitorCalendar.requestReadOnlyCalendarAccess()
+        .then((result) => {
+          this.storeService.setPermissionsState({
+            [PluginPermission.WRITE_CALENDAR]: result.result,
+            [PluginPermission.READ_CALENDAR]: result.result,
+          });
+          return result;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  }
+
+  requestFullRemindersAccess(): void {
+    this.collectResults(() => {
+      return CapacitorCalendar.requestFullRemindersAccess()
+        .then((result) => {
+          this.storeService.setPermissionsState({
+            [PluginPermission.WRITE_REMINDERS]: result.result,
+            [PluginPermission.READ_REMINDERS]: result.result,
+          });
+          return result;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  }
+
   private collectResults(handler: () => Promise<unknown>): void {
     handler()
       .then((results) => this.storeService.addLog(JSON.stringify(results)))

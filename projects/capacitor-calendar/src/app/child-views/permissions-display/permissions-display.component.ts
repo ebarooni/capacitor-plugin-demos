@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {
   IonBackButton,
+  IonButton,
   IonButtons,
   IonChip,
   IonCol,
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonItem,
   IonLabel,
   IonListHeader,
@@ -18,6 +20,7 @@ import { BaseIonListComponent } from '../../shared-components/base-ion-list/base
 import { StoreService } from '../../services/store/store.service';
 import { LetDirective } from '@ngrx/component';
 import { PluginPermission } from '@ebarooni/capacitor-calendar';
+import { CalendarService } from '../../services/calendar/calendar.service';
 
 @Component({
   selector: 'app-permissions-display',
@@ -39,10 +42,16 @@ import { PluginPermission } from '@ebarooni/capacitor-calendar';
     IonBackButton,
     LetDirective,
     IonChip,
+    IonButton,
+    IonIcon,
   ],
+  providers: [CalendarService],
 })
 export class PermissionsDisplayComponent {
   readonly permissions = Object.values(PluginPermission);
 
-  constructor(readonly storeService: StoreService) {}
+  constructor(
+    readonly storeService: StoreService,
+    readonly calendarService: CalendarService,
+  ) {}
 }

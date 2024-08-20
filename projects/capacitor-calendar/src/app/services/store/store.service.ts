@@ -73,4 +73,14 @@ export class StoreService extends ComponentStore<AppState> {
 
   readonly permissionsState$: Observable<AppState['permissionsState']> =
     this.select((state) => state.permissionsState);
+
+  readonly setPermissionsState = this.updater(
+    (state, permissionStatus: Partial<AppState['permissionsState']>) => ({
+      ...state,
+      permissionsState: {
+        ...state.permissionsState,
+        ...permissionStatus,
+      },
+    }),
+  );
 }
