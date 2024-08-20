@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   IonBackButton,
   IonButton,
@@ -47,11 +47,15 @@ import { CalendarService } from '../../services/calendar/calendar.service';
   ],
   providers: [CalendarService],
 })
-export class PermissionsDisplayComponent {
+export class PermissionsDisplayComponent implements OnInit {
   readonly permissions = Object.values(PluginPermission);
 
   constructor(
     readonly storeService: StoreService,
     readonly calendarService: CalendarService,
   ) {}
+
+  ngOnInit(): void {
+    this.calendarService.checkAllPermissions();
+  }
 }

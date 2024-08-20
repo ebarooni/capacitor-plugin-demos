@@ -77,6 +77,19 @@ export class CalendarService {
     });
   }
 
+  checkAllPermissions(): void {
+    this.collectResults(() => {
+      return CapacitorCalendar.checkAllPermissions()
+        .then((result) => {
+          this.storeService.setPermissionsState(result);
+          return result;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  }
+
   private collectResults(handler: () => Promise<unknown>): void {
     handler()
       .then((results) => this.storeService.addLog(JSON.stringify(results)))
