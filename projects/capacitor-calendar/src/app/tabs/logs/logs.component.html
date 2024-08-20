@@ -1,6 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Logs</ion-title>
+    <ion-buttons [slot]="'end'">
+      <ion-button
+        [size]="'small'"
+        [color]="'danger'"
+        (click)="storeService.clearLogs()"
+      >
+        <ion-icon [slot]="'icon-only'" [name]="'trash'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

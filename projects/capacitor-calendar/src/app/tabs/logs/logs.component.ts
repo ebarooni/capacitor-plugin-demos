@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import {
+  IonButton,
+  IonButtons,
   IonCol,
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonItem,
   IonLabel,
   IonNote,
@@ -35,6 +38,9 @@ import { DatePipe } from '@angular/common';
     LetDirective,
     IonNote,
     DatePipe,
+    IonButtons,
+    IonButton,
+    IonIcon,
   ],
 })
 export class LogsComponent implements ViewDidEnter {

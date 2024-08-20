@@ -12,6 +12,7 @@ import {
   exitOutline,
   shieldCheckmark,
   globeOutline,
+  trash,
 } from 'ionicons/icons';
 
 @Injectable({ providedIn: 'root' })
@@ -28,6 +29,7 @@ export class IconsService {
     exitOutline,
     shieldCheckmark,
     globeOutline,
+    trash,
   };
 
   registerIcons(): void {
