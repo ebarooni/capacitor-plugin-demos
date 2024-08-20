@@ -3,6 +3,7 @@ import { TabsComponent } from './tabs/tabs.component';
 import { ApiComponent } from './tabs/api/api.component';
 import { SettingsComponent } from './tabs/settings/settings.component';
 import { PermissionsDisplayComponent } from './child-views/permissions-display/permissions-display.component';
+import { LogsComponent } from './tabs/logs/logs.component';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,10 @@ export const routes: Routes = [
       {
         path: 'api',
         component: ApiComponent,
+      },
+      {
+        path: 'logs',
+        component: LogsComponent,
       },
       {
         path: 'settings',
