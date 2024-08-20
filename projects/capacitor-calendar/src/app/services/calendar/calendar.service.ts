@@ -47,7 +47,7 @@ export class CalendarService {
 
   requestFullCalendarAccess(): void {
     this.collectResults(() => {
-      return CapacitorCalendar.requestReadOnlyCalendarAccess()
+      return CapacitorCalendar.requestFullCalendarAccess()
         .then((result) => {
           this.storeService.setPermissionsState({
             [PluginPermission.WRITE_CALENDAR]: result.result,
