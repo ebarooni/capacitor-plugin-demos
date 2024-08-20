@@ -2,10 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>To read and write events to the calendar</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>Capacitor Calendar</string>
+	<string>Capacitor Calendar</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -43,6 +45,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>To read and create reminders</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>To read and write events to the calendar</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>To read and create reminders</string>
+	<key>NSContactsUsageDescription</key>
+	<string>To insert the location when creating calendar events</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>
