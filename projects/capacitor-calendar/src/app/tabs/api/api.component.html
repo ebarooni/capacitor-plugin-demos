@@ -48,7 +48,10 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <app-methods-list></app-methods-list>
+        <app-methods-list
+          *ngrxLet="storeService.platformFilter$ as platform"
+          [platform]="platform"
+        ></app-methods-list>
       </ion-col>
     </ion-row>
   </ion-grid>

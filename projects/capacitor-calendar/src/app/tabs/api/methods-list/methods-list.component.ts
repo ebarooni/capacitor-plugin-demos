@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild, Input } from '@angular/core';
 import { CalendarService } from '../../../services/calendar/calendar.service';
 import {
   IonButton,
@@ -14,12 +14,11 @@ import {
 } from '@ionic/angular/standalone';
 import { PluginPermission } from '@ebarooni/capacitor-calendar';
 import { BaseIonListComponent } from '../../../shared-components/base-ion-list/base-ion-list.component';
-
-interface MethodDetails {
-  method: () => void;
-  name: string;
-  supportedPlatforms: string[];
-}
+import {
+  FilterForPlatformPipe,
+  MethodDetails,
+} from './filter-for-platform/filter-for-platform.pipe';
+import { PlatformFilter } from '../../../services/store/store.service';
 
 @Component({
   selector: 'app-methods-list',
@@ -38,11 +37,13 @@ interface MethodDetails {
     IonPickerColumn,
     IonPickerColumnOption,
     BaseIonListComponent,
+    FilterForPlatformPipe,
   ],
   providers: [CalendarService],
 })
 export class MethodsListComponent {
   readonly calendarService = inject(CalendarService);
+  @Input() platform?: PlatformFilter;
   @ViewChild('permissionsModal') readonly permissionsModal!: IonModal;
   readonly pluginPermissions: PluginPermission[] =
     Object.values(PluginPermission);
