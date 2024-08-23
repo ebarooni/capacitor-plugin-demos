@@ -54,7 +54,7 @@ export class StoreService extends ComponentStore<AppState> {
   readonly addLog = this.updater((state, log: string) => ({
     ...state,
     unreadLogs: state.unreadLogs + 1,
-    logs: [...state.logs, { message: log, timestamp: Date.now() }],
+    logs: [{ message: log, timestamp: Date.now() }, ...state.logs],
   }));
 
   readonly clearLogs = this.updater((state) => ({
