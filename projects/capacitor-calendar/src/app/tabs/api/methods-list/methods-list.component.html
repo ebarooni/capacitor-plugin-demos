@@ -1,23 +1,26 @@
 <app-base-ion-list>
-  <ion-item [detail]="true" (click)="permissionsModal.present()">
-    <ion-label class="flex flex-column gap-1">
-      <ion-text class="font-medium text-lg">{{
-        calendarService.checkPermission.name
-      }}</ion-text>
-      <ion-note color="medium" class="text-sm">Since 0.0.1</ion-note>
-    </ion-label>
-    <div class="flex gap-1" [slot]="'end'">
-      <ion-button [color]="'primary'">
-        <ion-icon [slot]="'icon-only'" [name]="'logo-apple'"></ion-icon>
-      </ion-button>
-      <ion-button [color]="'success'">
-        <ion-icon [slot]="'icon-only'" [name]="'logo-android'"></ion-icon>
-      </ion-button>
-    </div>
-  </ion-item>
+  @for (item of methodsArray; track $index) {
+    <ion-item [detail]="true" (click)="item.method()">
+      <ion-label class="font-italic">
+        {{ item.name }}
+      </ion-label>
+      <div class="flex gap-1" [slot]="'end'">
+        @if (item.supportedPlatforms.includes("ios")) {
+          <ion-button [color]="'primary'">
+            <ion-icon [slot]="'icon-only'" [name]="'logo-apple'"></ion-icon>
+          </ion-button>
+        }
+        @if (item.supportedPlatforms.includes("android")) {
+          <ion-button [color]="'success'">
+            <ion-icon [slot]="'icon-only'" [name]="'logo-android'"></ion-icon>
+          </ion-button>
+        }
+      </div>
+    </ion-item>
+  }
 </app-base-ion-list>
 
-<ion-modal #permissionsModal (didDismiss)="onPermissionsModalDismiss($event)">
+<ion-modal #permissionsModal>
   <ng-template>
     <ion-toolbar>
       <ion-buttons slot="start">

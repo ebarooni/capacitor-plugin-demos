@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { CalendarService } from '../../../services/calendar/calendar.service';
 import {
   IonButton,
@@ -7,15 +7,19 @@ import {
   IonItem,
   IonLabel,
   IonModal,
-  IonNote,
   IonPicker,
   IonPickerColumn,
   IonPickerColumnOption,
-  IonText,
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { PluginPermission } from '@ebarooni/capacitor-calendar';
 import { BaseIonListComponent } from '../../../shared-components/base-ion-list/base-ion-list.component';
+
+interface MethodDetails {
+  method: () => void;
+  name: string;
+  supportedPlatforms: string[];
+}
 
 @Component({
   selector: 'app-methods-list',
@@ -27,8 +31,6 @@ import { BaseIonListComponent } from '../../../shared-components/base-ion-list/b
     IonIcon,
     IonItem,
     IonLabel,
-    IonNote,
-    IonText,
     IonModal,
     IonToolbar,
     IonButtons,
@@ -40,13 +42,64 @@ import { BaseIonListComponent } from '../../../shared-components/base-ion-list/b
   providers: [CalendarService],
 })
 export class MethodsListComponent {
+  readonly calendarService = inject(CalendarService);
+  @ViewChild('permissionsModal') readonly permissionsModal!: IonModal;
   readonly pluginPermissions: PluginPermission[] =
     Object.values(PluginPermission);
-
-  constructor(readonly calendarService: CalendarService) {}
-
-  onPermissionsModalDismiss(event: CustomEvent): void {
-    const permission = event.detail.data;
-    if (permission) this.calendarService.checkPermission(permission);
-  }
+  readonly methodsArray: MethodDetails[] = [
+    {
+      name: this.calendarService.checkPermission.name,
+      method: () =>
+        this.permissionsModal
+          .present()
+          .then(() => this.permissionsModal.onDidDismiss<CustomEvent>())
+          .then((event) => {
+            const permission = event.data as unknown as PluginPermission;
+            if (permission) this.calendarService.checkPermission(permission);
+          }),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.checkAllPermissions.name,
+      method: () => this.calendarService.checkAllPermissions(),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.requestPermission.name,
+      method: () =>
+        this.permissionsModal
+          .present()
+          .then(() => this.permissionsModal.onDidDismiss<CustomEvent>())
+          .then((event) => {
+            const permission = event.data as unknown as PluginPermission;
+            if (permission) this.calendarService.requestPermission(permission);
+          }),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.requestWriteOnlyCalendarAccess.name,
+      method: () => this.calendarService.requestWriteOnlyCalendarAccess(),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.requestReadOnlyCalendarAccess.name,
+      method: () => this.calendarService.requestReadOnlyCalendarAccess(),
+      supportedPlatforms: ['android'],
+    },
+    {
+      name: this.calendarService.requestFullCalendarAccess.name,
+      method: () => this.calendarService.requestFullCalendarAccess(),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.requestAllPermissions.name,
+      method: () => this.calendarService.requestAllPermissions(),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.requestFullRemindersAccess.name,
+      method: () => this.calendarService.requestFullRemindersAccess(),
+      supportedPlatforms: ['ios'],
+    },
+  ];
 }

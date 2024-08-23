@@ -90,6 +90,34 @@ export class CalendarService {
     });
   }
 
+  requestPermission(permission: PluginPermission): void {
+    this.collectResults(() => {
+      return CapacitorCalendar.requestPermission({ alias: permission })
+        .then((result) => {
+          this.storeService.setPermissionsState({
+            [permission]: result.result,
+          });
+          return result;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  }
+
+  requestAllPermissions(): void {
+    this.collectResults(() => {
+      return CapacitorCalendar.requestAllPermissions()
+        .then((result) => {
+          this.storeService.setPermissionsState(result);
+          return result;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  }
+
   private collectResults(handler: () => Promise<unknown>): void {
     handler()
       .then((results) => this.storeService.addLog(JSON.stringify(results)))
