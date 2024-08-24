@@ -20,6 +20,11 @@ import {
 } from './filter-for-platform/filter-for-platform.pipe';
 import { PlatformFilter } from '../../../services/store/store.service';
 
+enum PermissionModalRole {
+  CONFIRM = 'confirm',
+  CANCEL = 'cancel',
+}
+
 @Component({
   selector: 'app-methods-list',
   templateUrl: './methods-list.component.html',
@@ -55,8 +60,10 @@ export class MethodsListComponent {
           .present()
           .then(() => this.permissionsModal.onDidDismiss<CustomEvent>())
           .then((event) => {
-            const permission = event.data as unknown as PluginPermission;
-            if (permission) this.calendarService.checkPermission(permission);
+            if (event.role === this.permissionModalRole.CONFIRM) {
+              const permission = event.data as unknown as PluginPermission;
+              if (permission) this.calendarService.checkPermission(permission);
+            }
           }),
       supportedPlatforms: ['ios', 'android'],
     },
@@ -72,8 +79,11 @@ export class MethodsListComponent {
           .present()
           .then(() => this.permissionsModal.onDidDismiss<CustomEvent>())
           .then((event) => {
-            const permission = event.data as unknown as PluginPermission;
-            if (permission) this.calendarService.requestPermission(permission);
+            if (event.role === this.permissionModalRole.CONFIRM) {
+              const permission = event.data as unknown as PluginPermission;
+              if (permission)
+                this.calendarService.requestPermission(permission);
+            }
           }),
       supportedPlatforms: ['ios', 'android'],
     },
@@ -102,5 +112,14 @@ export class MethodsListComponent {
       method: () => this.calendarService.requestFullRemindersAccess(),
       supportedPlatforms: ['ios'],
     },
+    {
+      name: this.calendarService.createEventWithPrompt.name,
+      method: () => this.calendarService.createEventWithPrompt(),
+      supportedPlatforms: ['ios', 'android'],
+    },
   ];
+
+  get permissionModalRole(): typeof PermissionModalRole {
+    return PermissionModalRole;
+  }
 }

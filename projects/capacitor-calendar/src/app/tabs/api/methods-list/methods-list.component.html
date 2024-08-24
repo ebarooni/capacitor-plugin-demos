@@ -24,13 +24,19 @@
   <ng-template>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-button (click)="permissionsModal.dismiss(null, 'cancel')"
+        <ion-button
+          (click)="permissionsModal.dismiss(null, permissionModalRole.CANCEL)"
           >Cancel</ion-button
         >
       </ion-buttons>
       <ion-buttons slot="end">
         <ion-button
-          (click)="permissionsModal.dismiss(permissionPicker.value, 'confirm')"
+          (click)="
+            permissionsModal.dismiss(
+              permissionPicker.value,
+              permissionModalRole.CONFIRM
+            )
+          "
           >Done</ion-button
         >
       </ion-buttons>

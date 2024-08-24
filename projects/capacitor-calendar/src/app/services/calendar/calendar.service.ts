@@ -118,6 +118,12 @@ export class CalendarService {
     });
   }
 
+  createEventWithPrompt(): void {
+    this.collectResults(() =>
+      CapacitorCalendar.createEventWithPrompt({ title: '' }),
+    );
+  }
+
   private collectResults(handler: () => Promise<unknown>): void {
     handler()
       .then((results) => this.storeService.addLog(JSON.stringify(results)))
