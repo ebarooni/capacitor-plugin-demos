@@ -36,6 +36,8 @@ import { Calendar, CapacitorCalendar } from '@ebarooni/capacitor-calendar';
 import { LetDirective } from '@ngrx/component';
 import { NgStyle } from '@angular/common';
 import { CalendarColorPipe } from './calendar-color.pipe';
+import { PermissionModalRole } from '../../shared-types/permission-modal-role';
+import { CreateEventParam } from '../../shared-types/create-event-param';
 
 enum Alert {
   NONE = -1,
@@ -99,7 +101,7 @@ export class CreateEventDialogComponent {
     firstAlert: new FormControl<Alert>(Alert.NONE),
     secondAlert: new FormControl<Alert>(Alert.NONE),
     url: new FormControl<string>(''),
-    description: new FormControl<string>(''),
+    notes: new FormControl<string>(''),
   });
   readonly calendars$: Observable<Calendar[]> = defer(() =>
     CapacitorCalendar.listCalendars(),
@@ -119,7 +121,7 @@ export class CreateEventDialogComponent {
       ),
     ),
   );
-  readonly alertsArray: number[] = Object.values(Alert).filter((alert) =>
+  readonly alertsArray: number[] = Object.values(this.alert).filter((alert) =>
     Number.isInteger(alert),
   ) as number[];
 
@@ -127,12 +129,19 @@ export class CreateEventDialogComponent {
     return Alert;
   }
 
+  get permissionModalRole(): typeof PermissionModalRole {
+    return PermissionModalRole;
+  }
+
   present(): Promise<void> {
     return this.modal.present();
   }
 
-  dismiss(): Promise<boolean> {
-    return this.modal.dismiss();
+  dismiss(
+    role: PermissionModalRole,
+    data?: Partial<CreateEventParam>,
+  ): Promise<boolean> {
+    return this.modal.dismiss(data, role);
   }
 
   onAlertsChange(): void {
@@ -149,6 +158,33 @@ export class CreateEventDialogComponent {
         secondAlert: firstAlert,
       });
     }
+  }
+
+  submit(event: SubmitEvent): void {
+    event.preventDefault();
+    const data = Object.keys(this.eventDetailForm.value).reduce<
+      Partial<CreateEventParam>
+    >((acc: any, curr: any) => {
+      // @ts-ignore
+      const row = this.eventDetailForm.value[curr];
+      if (curr === 'firstAlert' || curr === 'secondAlert') {
+        if (row >= 0) {
+          if (acc['alertOffsetInMinutes']) {
+            acc['alertOffsetInMinutes'] = [...acc['alertOffsetInMinutes'], row];
+          } else {
+            acc['alertOffsetInMinutes'] = [row];
+          }
+        }
+      } else if (curr === 'startDate' || curr === 'endDate') {
+        const date = Date.parse(row);
+        if (date) acc[curr] = date;
+      } else {
+        if (row) acc[curr] = row;
+      }
+      return acc;
+    }, {} as Partial<CreateEventParam>);
+    this.eventDetailForm.reset();
+    void this.dismiss(this.permissionModalRole.CONFIRM, data);
   }
 
   static getCurrentIsoTimeInLocalTime(timestamp: number): string {

@@ -19,11 +19,9 @@ import {
   MethodDetails,
 } from './filter-for-platform/filter-for-platform.pipe';
 import { PlatformFilter } from '../../../services/store/store.service';
-
-enum PermissionModalRole {
-  CONFIRM = 'confirm',
-  CANCEL = 'cancel',
-}
+import { CreateEventDialogComponent } from '../../../shared-components/create-event-dialog/create-event-dialog.component';
+import { PermissionModalRole } from '../../../shared-types/permission-modal-role';
+import { CreateEventParam } from '../../../shared-types/create-event-param';
 
 @Component({
   selector: 'app-methods-list',
@@ -43,6 +41,7 @@ enum PermissionModalRole {
     IonPickerColumnOption,
     BaseIonListComponent,
     FilterForPlatformPipe,
+    CreateEventDialogComponent,
   ],
   providers: [CalendarService],
 })
@@ -50,6 +49,8 @@ export class MethodsListComponent {
   readonly calendarService = inject(CalendarService);
   @Input() platform?: PlatformFilter;
   @ViewChild('permissionsModal') readonly permissionsModal!: IonModal;
+  @ViewChild('createEventDialogComponent')
+  readonly createEventDialogComponent!: CreateEventDialogComponent;
   readonly pluginPermissions: PluginPermission[] =
     Object.values(PluginPermission);
   readonly methodsArray: MethodDetails[] = [
@@ -114,7 +115,18 @@ export class MethodsListComponent {
     },
     {
       name: this.calendarService.createEventWithPrompt.name,
-      method: () => this.calendarService.createEventWithPrompt(),
+      method: () =>
+        this.createEventDialogComponent
+          .present()
+          .then(() =>
+            this.createEventDialogComponent.modal.onDidDismiss<CustomEvent>(),
+          )
+          .then((event) => {
+            if (event.role === this.permissionModalRole.CONFIRM) {
+              const data = event.data as unknown as Partial<CreateEventParam>;
+              if (data) this.calendarService.createEventWithPrompt(data);
+            }
+          }),
       supportedPlatforms: ['ios', 'android'],
     },
   ];

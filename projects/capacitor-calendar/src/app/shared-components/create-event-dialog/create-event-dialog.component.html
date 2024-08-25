@@ -3,24 +3,34 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons [slot]="'start'">
-          <ion-button color="danger">Cancel</ion-button>
+          <ion-button
+            [color]="'danger'"
+            (click)="dismiss(permissionModalRole.CANCEL)"
+            >Cancel</ion-button
+          >
         </ion-buttons>
         <ion-title>New Event</ion-title>
         <ion-buttons [slot]="'end'">
-          <ion-button [strong]="true">Confirm</ion-button>
+          <ion-button
+            [strong]="true"
+            [disabled]="!eventDetailForm.controls.title.value"
+            (click)="hiddenSubmitBtn.click()"
+            >Confirm</ion-button
+          >
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
     <ion-content [color]="'light'">
       <ion-grid class="py-3">
-        <form [formGroup]="eventDetailForm">
+        <form [formGroup]="eventDetailForm" (submit)="submit($event)">
           <ion-row>
             <ion-col>
               <app-base-ion-list>
                 <ion-item>
                   <ion-input
                     type="text"
+                    [autocapitalize]="true"
                     [placeholder]="'Title'"
                     [formControlName]="'title'"
                     [clearInput]="true"
@@ -163,14 +173,17 @@
                 <ion-item>
                   <ion-textarea
                     [autoGrow]="true"
+                    [autocapitalize]="true"
                     [rows]="10"
                     [placeholder]="'Notes'"
-                    [formControlName]="'description'"
+                    [formControlName]="'notes'"
                   ></ion-textarea>
                 </ion-item>
               </app-base-ion-list>
             </ion-col>
           </ion-row>
+
+          <button #hiddenSubmitBtn [hidden]="true" type="submit"></button>
 
           <ion-modal [keepContentsMounted]="true">
             <ng-template>

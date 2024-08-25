@@ -4,6 +4,7 @@ import {
   PluginPermission,
 } from '@ebarooni/capacitor-calendar';
 import { StoreService } from '../store/store.service';
+import { CreateEventParam } from '../../shared-types/create-event-param';
 
 @Injectable()
 export class CalendarService {
@@ -118,9 +119,10 @@ export class CalendarService {
     });
   }
 
-  createEventWithPrompt(): void {
+  createEventWithPrompt(data: Partial<CreateEventParam>): void {
     this.collectResults(() =>
-      CapacitorCalendar.createEventWithPrompt({ title: '' }),
+      // @ts-ignore
+      CapacitorCalendar.createEventWithPrompt(data),
     );
   }
 
