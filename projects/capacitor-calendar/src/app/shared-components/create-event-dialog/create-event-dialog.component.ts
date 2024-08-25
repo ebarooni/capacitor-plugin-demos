@@ -15,6 +15,7 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
+  IonTextarea,
   IonTitle,
   IonToggle,
   IonToolbar,
@@ -77,6 +78,7 @@ enum Alert {
     LetDirective,
     NgStyle,
     CalendarColorPipe,
+    IonTextarea,
   ],
 })
 export class CreateEventDialogComponent {
