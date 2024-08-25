@@ -36,9 +36,22 @@ import { LetDirective } from '@ngrx/component';
 import { NgStyle } from '@angular/common';
 import { CalendarColorPipe } from './calendar-color.pipe';
 
+enum Alert {
+  NONE = -1,
+  TIME_OF_EVENT = 0,
+  FIVE = 5,
+  TEN = 10,
+  FIFTEEN = 15,
+  THIRTY = 30,
+  HOUR = 60,
+  TWO_HOURS = 120,
+  DAY = 1440,
+}
+
 @Component({
   selector: 'app-create-event-dialog',
   templateUrl: './create-event-dialog.component.html',
+  styleUrls: ['./create-event-dialog.component.scss'],
   standalone: true,
   imports: [
     IonModal,
@@ -81,6 +94,8 @@ export class CreateEventDialogComponent {
       ),
     ),
     calendarId: new FormControl<string>(''),
+    firstAlert: new FormControl<Alert>(Alert.NONE),
+    secondAlert: new FormControl<Alert>(Alert.NONE),
     url: new FormControl<string>(''),
     description: new FormControl<string>(''),
   });
@@ -102,6 +117,13 @@ export class CreateEventDialogComponent {
       ),
     ),
   );
+  readonly alertsArray: number[] = Object.values(Alert).filter((alert) =>
+    Number.isInteger(alert),
+  ) as number[];
+
+  get alert(): typeof Alert {
+    return Alert;
+  }
 
   present(): Promise<void> {
     return this.modal.present();
@@ -109,6 +131,22 @@ export class CreateEventDialogComponent {
 
   dismiss(): Promise<boolean> {
     return this.modal.dismiss();
+  }
+
+  onAlertsChange(): void {
+    const firstAlert = this.eventDetailForm.controls.firstAlert.value;
+    const secondAlert = this.eventDetailForm.controls.secondAlert.value;
+    if (
+      firstAlert &&
+      secondAlert &&
+      secondAlert !== Alert.NONE &&
+      secondAlert <= firstAlert
+    ) {
+      this.eventDetailForm.patchValue({
+        firstAlert: secondAlert,
+        secondAlert: firstAlert,
+      });
+    }
   }
 
   static getCurrentIsoTimeInLocalTime(timestamp: number): string {

@@ -42,7 +42,7 @@
             <ion-col>
               <app-base-ion-list>
                 <ion-item>
-                  <ion-toggle [formControlName]="'isAllDay'"
+                  <ion-toggle [formControlName]="'isAllDay'" [color]="'success'"
                     >All-day</ion-toggle
                   >
                 </ion-item>
@@ -72,7 +72,7 @@
                   <ion-label>Calendar</ion-label>
                   <div [slot]="'end'" class="flex gap-2 align-items-center">
                     @if (
-                      eventDetailForm.controls["calendarId"].value
+                      eventDetailForm.controls.calendarId.value
                         | calendarColor: calendars;
                       as calendarColor
                     ) {
@@ -98,6 +98,53 @@
                     </ion-select>
                   </div>
                 </ion-item>
+              </app-base-ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <app-base-ion-list>
+                <ion-item>
+                  <ion-select
+                    (ionChange)="onAlertsChange()"
+                    [formControlName]="'firstAlert'"
+                    [label]="'Alert'"
+                  >
+                    @for (alertOption of alertsArray; track $index) {
+                      <ion-select-option [value]="alertOption">
+                        @if (alertOption < 0) {
+                          None
+                        } @else if (alertOption === 0) {
+                          At time of event
+                        } @else {
+                          {{ alertOption }} minutes before
+                        }
+                      </ion-select-option>
+                    }
+                  </ion-select>
+                </ion-item>
+                @if (eventDetailForm.controls.firstAlert.value !== alert.NONE) {
+                  <ion-item>
+                    <ion-select
+                      (ionChange)="onAlertsChange()"
+                      [formControlName]="'secondAlert'"
+                      [label]="'Second Alert'"
+                    >
+                      @for (alertOption of alertsArray; track $index) {
+                        <ion-select-option [value]="alertOption">
+                          @if (alertOption < 0) {
+                            None
+                          } @else if (alertOption === 0) {
+                            At time of event
+                          } @else {
+                            {{ alertOption }} minutes before
+                          }
+                        </ion-select-option>
+                      }
+                    </ion-select>
+                  </ion-item>
+                }
               </app-base-ion-list>
             </ion-col>
           </ion-row>
