@@ -182,6 +182,32 @@ export class MethodsListComponent {
       method: () => this.calendarService.getDefaultCalendar(),
       supportedPlatforms: ['ios', 'android'],
     },
+    {
+      name: this.calendarService.createEvent.name,
+      method: () =>
+        this.createEventDialogComponent
+          .present()
+          .then(() =>
+            this.createEventDialogComponent.modal.onDidDismiss<CustomEvent>(),
+          )
+          .then((event) => {
+            if (event.role === this.permissionModalRole.CONFIRM) {
+              const data = event.data as unknown as Partial<CreateEventParam>;
+              if (data) this.calendarService.createEvent(data);
+            }
+          }),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.getDefaultRemindersList.name,
+      method: () => this.calendarService.getDefaultRemindersList(),
+      supportedPlatforms: ['ios'],
+    },
+    {
+      name: this.calendarService.getRemindersLists.name,
+      method: () => this.calendarService.getRemindersLists(),
+      supportedPlatforms: ['ios'],
+    },
   ];
 
   get permissionModalRole(): typeof PermissionModalRole {

@@ -148,6 +148,21 @@ export class CalendarService {
     this.collectResults(() => CapacitorCalendar.getDefaultCalendar());
   }
 
+  createEvent(data: Partial<CreateEventParam>): void {
+    this.collectResults(() =>
+      // @ts-ignore
+      CapacitorCalendar.createEvent(data),
+    );
+  }
+
+  getDefaultRemindersList(): void {
+    this.collectResults(() => CapacitorCalendar.getDefaultRemindersList());
+  }
+
+  getRemindersLists(): void {
+    this.collectResults(() => CapacitorCalendar.getRemindersLists());
+  }
+
   private collectResults(handler: () => Promise<unknown>): void {
     handler()
       .then((results) => this.storeService.addLog(JSON.stringify(results)))
