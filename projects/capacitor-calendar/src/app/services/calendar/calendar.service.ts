@@ -140,6 +140,14 @@ export class CalendarService {
     );
   }
 
+  listCalendars(): void {
+    this.collectResults(() => CapacitorCalendar.listCalendars());
+  }
+
+  getDefaultCalendar(): void {
+    this.collectResults(() => CapacitorCalendar.getDefaultCalendar());
+  }
+
   private collectResults(handler: () => Promise<unknown>): void {
     handler()
       .then((results) => this.storeService.addLog(JSON.stringify(results)))

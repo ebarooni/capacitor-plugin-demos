@@ -172,6 +172,16 @@ export class MethodsListComponent {
           }),
       supportedPlatforms: ['ios'],
     },
+    {
+      name: this.calendarService.listCalendars.name,
+      method: () => this.calendarService.listCalendars(),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.getDefaultCalendar.name,
+      method: () => this.calendarService.getDefaultCalendar(),
+      supportedPlatforms: ['ios', 'android'],
+    },
   ];
 
   get permissionModalRole(): typeof PermissionModalRole {
