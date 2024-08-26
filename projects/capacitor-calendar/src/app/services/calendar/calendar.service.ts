@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
+  CalendarChooserDisplayStyle,
+  CalendarChooserSelectionStyle,
   CapacitorCalendar,
   PluginPermission,
 } from '@ebarooni/capacitor-calendar';
@@ -123,6 +125,18 @@ export class CalendarService {
     this.collectResults(() =>
       // @ts-ignore
       CapacitorCalendar.createEventWithPrompt(data),
+    );
+  }
+
+  selectCalendarsWithPrompt(
+    displayStyle: CalendarChooserDisplayStyle,
+    selectionStyle: CalendarChooserSelectionStyle,
+  ): void {
+    this.collectResults(() =>
+      CapacitorCalendar.selectCalendarsWithPrompt({
+        displayStyle,
+        selectionStyle,
+      }),
     );
   }
 

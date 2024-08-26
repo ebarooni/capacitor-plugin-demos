@@ -12,7 +12,11 @@ import {
   IonPickerColumnOption,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { PluginPermission } from '@ebarooni/capacitor-calendar';
+import {
+  CalendarChooserDisplayStyle,
+  CalendarChooserSelectionStyle,
+  PluginPermission,
+} from '@ebarooni/capacitor-calendar';
 import { BaseIonListComponent } from '../../../shared-components/base-ion-list/base-ion-list.component';
 import {
   FilterForPlatformPipe,
@@ -49,10 +53,31 @@ export class MethodsListComponent {
   readonly calendarService = inject(CalendarService);
   @Input() platform?: PlatformFilter;
   @ViewChild('permissionsModal') readonly permissionsModal!: IonModal;
+  @ViewChild('calendarOptionsModal') readonly calendarOptionsModal!: IonModal;
   @ViewChild('createEventDialogComponent')
   readonly createEventDialogComponent!: CreateEventDialogComponent;
   readonly pluginPermissions: PluginPermission[] =
     Object.values(PluginPermission);
+  readonly calendarSelectionStyleArr = Object.keys(
+    CalendarChooserSelectionStyle,
+  )
+    .filter((key) => isNaN(Number(key)))
+    .map((key) => ({
+      text: key,
+      value:
+        CalendarChooserSelectionStyle[
+          key as keyof typeof CalendarChooserSelectionStyle
+        ],
+    }));
+  readonly calendarDisplayStyleArr = Object.keys(CalendarChooserDisplayStyle)
+    .filter((key) => isNaN(Number(key)))
+    .map((key) => ({
+      text: key,
+      value:
+        CalendarChooserDisplayStyle[
+          key as keyof typeof CalendarChooserDisplayStyle
+        ],
+    }));
   readonly methodsArray: MethodDetails[] = [
     {
       name: this.calendarService.checkPermission.name,
@@ -128,6 +153,24 @@ export class MethodsListComponent {
             }
           }),
       supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.selectCalendarsWithPrompt.name,
+      method: () =>
+        this.calendarOptionsModal
+          .present()
+          .then(() => this.calendarOptionsModal.onDidDismiss<CustomEvent>())
+          .then((event) => {
+            if (event.role === this.permissionModalRole.CONFIRM) {
+              const { style, display } = event.data as unknown as {
+                style: CalendarChooserSelectionStyle;
+                display: CalendarChooserDisplayStyle;
+              };
+              if (style >= 0 && display >= 0)
+                this.calendarService.selectCalendarsWithPrompt(display, style);
+            }
+          }),
+      supportedPlatforms: ['ios'],
     },
   ];
 

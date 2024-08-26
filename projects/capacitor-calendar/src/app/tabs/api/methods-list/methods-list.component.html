@@ -56,4 +56,61 @@
   </ng-template>
 </ion-modal>
 
+<ion-modal #calendarOptionsModal>
+  <ng-template>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button
+          (click)="
+            calendarOptionsModal.dismiss(null, permissionModalRole.CANCEL)
+          "
+          >Cancel</ion-button
+        >
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button
+          (click)="
+            calendarOptionsModal.dismiss(
+              {
+                style: calendarOptionsSelectionStylePicker.value,
+                display: calendarOptionsDisplayStylePicker.value,
+              },
+              permissionModalRole.CONFIRM
+            )
+          "
+          >Done</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-picker>
+      <ion-picker-column
+        #calendarOptionsSelectionStylePicker
+        [value]="calendarSelectionStyleArr[0].value"
+      >
+        <ion-picker-column-option [value]="" [disabled]="true"
+          >--</ion-picker-column-option
+        >
+        @for (style of calendarSelectionStyleArr; track $index) {
+          <ion-picker-column-option [value]="style.value">{{
+            style.text
+          }}</ion-picker-column-option>
+        }
+      </ion-picker-column>
+      <ion-picker-column
+        #calendarOptionsDisplayStylePicker
+        [value]="calendarDisplayStyleArr[0].value"
+      >
+        <ion-picker-column-option [value]="" [disabled]="true"
+          >--</ion-picker-column-option
+        >
+        @for (display of calendarDisplayStyleArr; track $index) {
+          <ion-picker-column-option [value]="display.value">{{
+            display.text
+          }}</ion-picker-column-option>
+        }
+      </ion-picker-column>
+    </ion-picker>
+  </ng-template>
+</ion-modal>
+
 <app-create-event-dialog #createEventDialogComponent></app-create-event-dialog>
