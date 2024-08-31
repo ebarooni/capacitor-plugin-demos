@@ -38,6 +38,7 @@ import { NgStyle } from '@angular/common';
 import { CalendarColorPipe } from './calendar-color.pipe';
 import { PermissionModalRole } from '../../shared-types/permission-modal-role';
 import { CreateEventParam } from '../../shared-types/create-event-param';
+import { PartialWithRequired } from '../../shared-types/partial-with-required';
 
 enum Alert {
   NONE = -1,
@@ -164,25 +165,31 @@ export class CreateEventDialogComponent {
     event.preventDefault();
     const data = Object.keys(this.eventDetailForm.value).reduce<
       Partial<CreateEventParam>
-    >((acc: any, curr: any) => {
-      // @ts-ignore
-      const row = this.eventDetailForm.value[curr];
-      if (curr === 'firstAlert' || curr === 'secondAlert') {
-        if (row >= 0) {
-          if (acc['alertOffsetInMinutes']) {
-            acc['alertOffsetInMinutes'] = [...acc['alertOffsetInMinutes'], row];
-          } else {
-            acc['alertOffsetInMinutes'] = [row];
+    >(
+      (acc: any, curr: any) => {
+        // @ts-ignore
+        const row = this.eventDetailForm.value[curr];
+        if (curr === 'firstAlert' || curr === 'secondAlert') {
+          if (row >= 0) {
+            if (acc['alertOffsetInMinutes']) {
+              acc['alertOffsetInMinutes'] = [
+                ...acc['alertOffsetInMinutes'],
+                row,
+              ];
+            } else {
+              acc['alertOffsetInMinutes'] = [row];
+            }
           }
+        } else if (curr === 'startDate' || curr === 'endDate') {
+          const date = Date.parse(row);
+          if (date) acc[curr] = date;
+        } else {
+          if (row) acc[curr] = row;
         }
-      } else if (curr === 'startDate' || curr === 'endDate') {
-        const date = Date.parse(row);
-        if (date) acc[curr] = date;
-      } else {
-        if (row) acc[curr] = row;
-      }
-      return acc;
-    }, {} as Partial<CreateEventParam>);
+        return acc;
+      },
+      {} as PartialWithRequired<CreateEventParam, 'title'>,
+    );
     this.eventDetailForm.reset();
     void this.dismiss(this.permissionModalRole.CONFIRM, data);
   }

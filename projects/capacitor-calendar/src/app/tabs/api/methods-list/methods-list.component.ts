@@ -26,6 +26,7 @@ import { PlatformFilter } from '../../../services/store/store.service';
 import { CreateEventDialogComponent } from '../../../shared-components/create-event-dialog/create-event-dialog.component';
 import { PermissionModalRole } from '../../../shared-types/permission-modal-role';
 import { CreateEventParam } from '../../../shared-types/create-event-param';
+import { PartialWithRequired } from '../../../shared-types/partial-with-required';
 
 @Component({
   selector: 'app-methods-list',
@@ -192,7 +193,10 @@ export class MethodsListComponent {
           )
           .then((event) => {
             if (event.role === this.permissionModalRole.CONFIRM) {
-              const data = event.data as unknown as Partial<CreateEventParam>;
+              const data = event.data as unknown as PartialWithRequired<
+                CreateEventParam,
+                'title'
+              >;
               if (data) this.calendarService.createEvent(data);
             }
           }),
