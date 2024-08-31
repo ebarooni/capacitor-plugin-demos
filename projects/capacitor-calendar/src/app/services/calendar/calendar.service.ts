@@ -8,7 +8,7 @@ import {
 import { StoreService } from '../store/store.service';
 import { CreateEventParam } from '../../shared-types/create-event-param';
 import { CreateReminderParam } from '../../shared-types/create-reminder-param';
-import { PartialWithRequired } from '../../shared-types/partial-with-required';
+import { PartialWithRequiredAndOptionalExcluded } from '../../shared-types/partial-with-required-and-optional-excluded';
 
 @Injectable()
 export class CalendarService {
@@ -150,7 +150,9 @@ export class CalendarService {
     this.collectResults(() => CapacitorCalendar.getDefaultCalendar());
   }
 
-  createEvent(data: PartialWithRequired<CreateEventParam, 'title'>): void {
+  createEvent(
+    data: PartialWithRequiredAndOptionalExcluded<CreateEventParam, 'title'>,
+  ): void {
     this.collectResults(() => CapacitorCalendar.createEvent(data));
   }
 
@@ -163,7 +165,7 @@ export class CalendarService {
   }
 
   createReminder(
-    data: PartialWithRequired<CreateReminderParam, 'title'>,
+    data: PartialWithRequiredAndOptionalExcluded<CreateReminderParam, 'title'>,
   ): void {
     this.collectResults(() => CapacitorCalendar.createReminder(data));
   }

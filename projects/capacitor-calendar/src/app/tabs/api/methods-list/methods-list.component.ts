@@ -26,7 +26,9 @@ import { PlatformFilter } from '../../../services/store/store.service';
 import { CreateEventDialogComponent } from '../../../shared-components/create-event-dialog/create-event-dialog.component';
 import { PermissionModalRole } from '../../../shared-types/permission-modal-role';
 import { CreateEventParam } from '../../../shared-types/create-event-param';
-import { PartialWithRequired } from '../../../shared-types/partial-with-required';
+import { PartialWithRequiredAndOptionalExcluded } from '../../../shared-types/partial-with-required-and-optional-excluded';
+import { CreateReminderDialogComponent } from '../../../shared-components/create-reminder-dialog/create-reminder-dialog.component';
+import { CreateReminderParam } from '../../../shared-types/create-reminder-param';
 
 @Component({
   selector: 'app-methods-list',
@@ -47,6 +49,7 @@ import { PartialWithRequired } from '../../../shared-types/partial-with-required
     BaseIonListComponent,
     FilterForPlatformPipe,
     CreateEventDialogComponent,
+    CreateReminderDialogComponent,
   ],
   providers: [CalendarService],
 })
@@ -57,6 +60,8 @@ export class MethodsListComponent {
   @ViewChild('calendarOptionsModal') readonly calendarOptionsModal!: IonModal;
   @ViewChild('createEventDialogComponent')
   readonly createEventDialogComponent!: CreateEventDialogComponent;
+  @ViewChild('createReminderDialogComponent')
+  readonly createReminderDialogComponent!: CreateReminderDialogComponent;
   readonly pluginPermissions: PluginPermission[] =
     Object.values(PluginPermission);
   readonly calendarSelectionStyleArr = Object.keys(
@@ -193,10 +198,11 @@ export class MethodsListComponent {
           )
           .then((event) => {
             if (event.role === this.permissionModalRole.CONFIRM) {
-              const data = event.data as unknown as PartialWithRequired<
-                CreateEventParam,
-                'title'
-              >;
+              const data =
+                event.data as unknown as PartialWithRequiredAndOptionalExcluded<
+                  CreateEventParam,
+                  'title'
+                >;
               if (data) this.calendarService.createEvent(data);
             }
           }),
@@ -210,6 +216,26 @@ export class MethodsListComponent {
     {
       name: this.calendarService.getRemindersLists.name,
       method: () => this.calendarService.getRemindersLists(),
+      supportedPlatforms: ['ios'],
+    },
+    {
+      name: this.calendarService.createReminder.name,
+      method: () =>
+        this.createReminderDialogComponent
+          .present()
+          .then(() =>
+            this.createReminderDialogComponent.modal.onDidDismiss<CustomEvent>(),
+          )
+          .then((event) => {
+            if (event.role === this.permissionModalRole.CONFIRM) {
+              const data =
+                event.data as unknown as PartialWithRequiredAndOptionalExcluded<
+                  CreateReminderParam,
+                  'title'
+                >;
+              if (data) this.calendarService.createReminder(data);
+            }
+          }),
       supportedPlatforms: ['ios'],
     },
   ];
