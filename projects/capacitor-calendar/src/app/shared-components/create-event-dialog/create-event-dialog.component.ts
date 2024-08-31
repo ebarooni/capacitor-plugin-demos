@@ -38,7 +38,7 @@ import { NgStyle } from '@angular/common';
 import { CalendarColorPipe } from './calendar-color.pipe';
 import { PermissionModalRole } from '../../shared-types/permission-modal-role';
 import { CreateEventParam } from '../../shared-types/create-event-param';
-import { PartialWithRequired } from '../../shared-types/partial-with-required';
+import { PartialWithRequiredAndOptionalExcluded } from '../../shared-types/partial-with-required-and-optional-excluded';
 
 enum Alert {
   NONE = -1,
@@ -140,7 +140,7 @@ export class CreateEventDialogComponent {
 
   dismiss(
     role: PermissionModalRole,
-    data?: Partial<CreateEventParam>,
+    data?: PartialWithRequiredAndOptionalExcluded<CreateEventParam, 'title'>,
   ): Promise<boolean> {
     return this.modal.dismiss(data, role);
   }
@@ -188,8 +188,8 @@ export class CreateEventDialogComponent {
         }
         return acc;
       },
-      {} as PartialWithRequired<CreateEventParam, 'title'>,
-    );
+      {} as PartialWithRequiredAndOptionalExcluded<CreateEventParam, 'title'>,
+    ) as PartialWithRequiredAndOptionalExcluded<CreateEventParam, 'title'>;
     this.eventDetailForm.reset();
     void this.dismiss(this.permissionModalRole.CONFIRM, data);
   }
