@@ -7,6 +7,8 @@ import {
 } from '@ebarooni/capacitor-calendar';
 import { StoreService } from '../store/store.service';
 import { CreateEventParam } from '../../shared-types/create-event-param';
+import { CreateReminderParam } from '../../shared-types/create-reminder-param';
+import { PartialWithRequired } from '../../shared-types/partial-with-required';
 
 @Injectable()
 export class CalendarService {
@@ -148,11 +150,8 @@ export class CalendarService {
     this.collectResults(() => CapacitorCalendar.getDefaultCalendar());
   }
 
-  createEvent(data: Partial<CreateEventParam>): void {
-    this.collectResults(() =>
-      // @ts-ignore
-      CapacitorCalendar.createEvent(data),
-    );
+  createEvent(data: PartialWithRequired<CreateEventParam, 'title'>): void {
+    this.collectResults(() => CapacitorCalendar.createEvent(data));
   }
 
   getDefaultRemindersList(): void {
@@ -161,6 +160,12 @@ export class CalendarService {
 
   getRemindersLists(): void {
     this.collectResults(() => CapacitorCalendar.getRemindersLists());
+  }
+
+  createReminder(
+    data: PartialWithRequired<CreateReminderParam, 'title'>,
+  ): void {
+    this.collectResults(() => CapacitorCalendar.createReminder(data));
   }
 
   private collectResults(handler: () => Promise<unknown>): void {
