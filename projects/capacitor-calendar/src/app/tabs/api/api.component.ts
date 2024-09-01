@@ -27,6 +27,7 @@ import { LetDirective } from '@ngrx/component';
 import { MethodsListComponent } from './methods-list/methods-list.component';
 import { AvatarBannerComponent } from '../../shared-components/avatar-banner/avatar-banner.component';
 import { RouterLink } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-api',
@@ -59,6 +60,14 @@ import { RouterLink } from '@angular/router';
 })
 export class ApiComponent {
   readonly availablePlatforms = <PlatformFilter[]>['All', 'iOS', 'Android'];
+  private readonly searchStringSubject = new BehaviorSubject('');
+  readonly searchString$ = this.searchStringSubject.asObservable();
 
   constructor(readonly storeService: StoreService) {}
+
+  searchValueChanged(event: CustomEvent) {
+    const searchValue = event.detail.value;
+    if (searchValue !== undefined && searchValue !== null)
+      this.searchStringSubject.next(searchValue);
+  }
 }

@@ -20,7 +20,10 @@
     </ion-toolbar>
 
     <ion-toolbar [color]="'light'">
-      <ion-searchbar [showCancelButton]="'focus'"></ion-searchbar>
+      <ion-searchbar
+        [showCancelButton]="'focus'"
+        (ionInput)="searchValueChanged($event)"
+      ></ion-searchbar>
     </ion-toolbar>
 
     <ion-toolbar [color]="'light'">
@@ -49,8 +52,12 @@
     <ion-row>
       <ion-col>
         <app-methods-list
-          *ngrxLet="storeService.platformFilter$ as platform"
-          [platform]="platform"
+          *ngrxLet="{
+            platform: storeService.platformFilter$,
+            searchString: searchString$,
+          } as vm"
+          [platform]="vm.platform"
+          [searchString]="vm.searchString"
         ></app-methods-list>
       </ion-col>
     </ion-row>

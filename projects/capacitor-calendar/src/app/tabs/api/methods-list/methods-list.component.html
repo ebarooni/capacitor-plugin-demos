@@ -1,5 +1,10 @@
 <app-base-ion-list>
-  @for (item of methodsArray | filterForPlatform: platform; track $index) {
+  @for (
+    item of methodsArray
+      | filterForMethod: searchString
+      | filterForPlatform: platform;
+    track $index
+  ) {
     <ion-item [detail]="true" (click)="item.method()">
       <ion-label class="font-italic">
         {{ item.name }}

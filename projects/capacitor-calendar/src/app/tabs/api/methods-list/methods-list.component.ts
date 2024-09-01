@@ -30,6 +30,7 @@ import { PartialWithRequiredAndOptionalExcluded } from '../../../shared-types/pa
 import { CreateReminderDialogComponent } from '../../../shared-components/create-reminder-dialog/create-reminder-dialog.component';
 import { CreateReminderParam } from '../../../shared-types/create-reminder-param';
 import { DateTimeComponent } from '../../../shared-components/date-time/date-time.component';
+import { FilterForMethodPipe } from './filter-for-method/filter-for-method.pipe';
 
 @Component({
   selector: 'app-methods-list',
@@ -52,12 +53,14 @@ import { DateTimeComponent } from '../../../shared-components/date-time/date-tim
     CreateEventDialogComponent,
     CreateReminderDialogComponent,
     DateTimeComponent,
+    FilterForMethodPipe,
   ],
   providers: [CalendarService],
 })
 export class MethodsListComponent {
   readonly calendarService = inject(CalendarService);
   @Input() platform?: PlatformFilter;
+  @Input() searchString?: string;
   @ViewChild('permissionsModal') readonly permissionsModal!: IonModal;
   @ViewChild('calendarOptionsModal') readonly calendarOptionsModal!: IonModal;
   @ViewChild('createEventDialogComponent')
