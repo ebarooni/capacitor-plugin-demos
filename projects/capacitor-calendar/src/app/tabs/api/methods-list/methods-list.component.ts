@@ -29,6 +29,7 @@ import { CreateEventParam } from '../../../shared-types/create-event-param';
 import { PartialWithRequiredAndOptionalExcluded } from '../../../shared-types/partial-with-required-and-optional-excluded';
 import { CreateReminderDialogComponent } from '../../../shared-components/create-reminder-dialog/create-reminder-dialog.component';
 import { CreateReminderParam } from '../../../shared-types/create-reminder-param';
+import { DateTimeComponent } from '../../../shared-components/date-time/date-time.component';
 
 @Component({
   selector: 'app-methods-list',
@@ -50,6 +51,7 @@ import { CreateReminderParam } from '../../../shared-types/create-reminder-param
     FilterForPlatformPipe,
     CreateEventDialogComponent,
     CreateReminderDialogComponent,
+    DateTimeComponent,
   ],
   providers: [CalendarService],
 })
@@ -62,6 +64,8 @@ export class MethodsListComponent {
   readonly createEventDialogComponent!: CreateEventDialogComponent;
   @ViewChild('createReminderDialogComponent')
   readonly createReminderDialogComponent!: CreateReminderDialogComponent;
+  @ViewChild('dateTimeComponent')
+  private readonly dateTimeComponent!: DateTimeComponent;
   readonly pluginPermissions: PluginPermission[] =
     Object.values(PluginPermission);
   readonly calendarSelectionStyleArr = Object.keys(
@@ -236,6 +240,27 @@ export class MethodsListComponent {
               if (data) this.calendarService.createReminder(data);
             }
           }),
+      supportedPlatforms: ['ios'],
+    },
+    {
+      name: this.calendarService.openCalendar.name,
+      method: () =>
+        this.dateTimeComponent
+          .present()
+          .then(() =>
+            this.dateTimeComponent.ionDatetime.onDidDismiss<CustomEvent>(),
+          )
+          .then((event) => {
+            if (event.role === this.permissionModalRole.CONFIRM) {
+              const data = event.data?.detail;
+              if (data) this.calendarService.openCalendar(data.value);
+            }
+          }),
+      supportedPlatforms: ['ios', 'android'],
+    },
+    {
+      name: this.calendarService.openReminders.name,
+      method: () => this.calendarService.openReminders(),
       supportedPlatforms: ['ios'],
     },
   ];

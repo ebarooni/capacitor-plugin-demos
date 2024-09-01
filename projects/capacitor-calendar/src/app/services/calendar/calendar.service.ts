@@ -170,6 +170,18 @@ export class CalendarService {
     this.collectResults(() => CapacitorCalendar.createReminder(data));
   }
 
+  openCalendar(at: number): void {
+    this.collectResults(() =>
+      CapacitorCalendar.openCalendar({
+        date: at,
+      }),
+    );
+  }
+
+  openReminders(): void {
+    this.collectResults(() => CapacitorCalendar.openReminders());
+  }
+
   private collectResults(handler: () => Promise<unknown>): void {
     handler()
       .then((results) => this.storeService.addLog(JSON.stringify(results)))
