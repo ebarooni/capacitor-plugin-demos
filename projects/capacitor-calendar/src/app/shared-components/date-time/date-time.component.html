@@ -1,0 +1,13 @@
+<ion-popover #ionDatetime [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime
+      *ngrxLet="time$ as time"
+      [value]="time"
+      [showDefaultButtons]="true"
+      (ionCancel)="ionDatetime.dismiss(null, permissionModalRole.CANCEL)"
+      (ionChange)="
+        ionDatetime.dismiss(parseDate($event), permissionModalRole.CONFIRM)
+      "
+    ></ion-datetime>
+  </ng-template>
+</ion-popover>
