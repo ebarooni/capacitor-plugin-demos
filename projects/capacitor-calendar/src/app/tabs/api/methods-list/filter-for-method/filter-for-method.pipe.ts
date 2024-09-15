@@ -12,7 +12,7 @@ export class FilterForMethodPipe implements PipeTransform {
   ): MethodDetails[] {
     if (searchString) {
       return methodsArray.filter((method) =>
-        method.name.includes(searchString),
+        method.name.toLowerCase().includes(searchString.toLowerCase()),
       );
     } else return methodsArray;
   }
