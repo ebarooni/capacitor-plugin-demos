@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Logs</ion-title>
+    <ion-buttons [slot]="'end'">
+      <ion-button
+        [size]="'small'"
+        [color]="'danger'"
+        (click)="storeService.clearLogs()"
+      >
+        <ion-icon [slot]="'icon-only'" [name]="'trash'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [color]="'light'">
+  <ion-header collapse="condense">
+    <ion-toolbar [color]="'light'" class="p-2">
+      <ion-title size="large">Logs</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <app-base-ion-list *ngrxLet="storeService.logs$ as logs">
+          @for (log of logs; track $index) {
+            <ion-item>
+              <ion-label>{{ log.message }}</ion-label>
+              <ion-note [slot]="'end'">
+                {{ log.timestamp | date: "HH:mm:ss" }}
+              </ion-note>
+            </ion-item>
+          } @empty {
+            <ion-item class="text-center">
+              <ion-label [color]="'tertiary'"
+                >Invoke a method from the API tab to see the logs</ion-label
+              >
+            </ion-item>
+          }
+        </app-base-ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,20 @@
+<app-base-ion-list *ngrxLet="themeService.isDarkMode$ as isDarkMode">
+  <ion-item class="py-1">
+    <img
+      alt=""
+      [ngSrc]="isDarkMode ? 'avatar-logo-dark.svg' : 'avatar-logo-light.svg'"
+      [slot]="'start'"
+      [width]="64"
+      [height]="64"
+      class="border-round-xl"
+    />
+    <ion-label class="flex flex-column gap-1">
+      <ion-text class="font-semibold"
+        >&#64;ebarooni/capacitor-calendar</ion-text
+      >
+      <ion-note color="medium" class="ion-text-wrap text-sm font-medium"
+        >v6.7.0</ion-note
+      >
+    </ion-label>
+  </ion-item>
+</app-base-ion-list>
