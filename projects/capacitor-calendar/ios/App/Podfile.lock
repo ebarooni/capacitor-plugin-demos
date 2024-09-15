@@ -1,22 +1,40 @@
 PODS:
   - Capacitor (6.1.2):
     - CapacitorCordova
+  - CapacitorApp (6.0.1):
+    - Capacitor
+  - CapacitorBrowser (6.0.2):
+    - Capacitor
   - CapacitorCordova (6.1.2)
+  - EbarooniCapacitorCalendar (6.7.0):
+    - Capacitor
 
 DEPENDENCIES:
   - "Capacitor (from `../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../../../node_modules/@capacitor/app`)"
+  - "CapacitorBrowser (from `../../../../node_modules/@capacitor/browser`)"
   - "CapacitorCordova (from `../../../../node_modules/@capacitor/ios`)"
+  - "EbarooniCapacitorCalendar (from `../../../../node_modules/@ebarooni/capacitor-calendar`)"
 
 EXTERNAL SOURCES:
   Capacitor:
     :path: "../../../../node_modules/@capacitor/ios"
+  CapacitorApp:
+    :path: "../../../../node_modules/@capacitor/app"
+  CapacitorBrowser:
+    :path: "../../../../node_modules/@capacitor/browser"
   CapacitorCordova:
     :path: "../../../../node_modules/@capacitor/ios"
+  EbarooniCapacitorCalendar:
+    :path: "../../../../node_modules/@ebarooni/capacitor-calendar"
 
 SPEC CHECKSUMS:
   Capacitor: 679f9673fdf30597493a6362a5d5bf233d46abc2
+  CapacitorApp: 0bc633b4eae40a1f32cd2834788fad3bc42da6a1
+  CapacitorBrowser: 83ec661a9ccd56c28a6851e4dd1ac33b181227ec
   CapacitorCordova: f48c89f96c319101cd2f0ce8a2b7449b5fb8b3dd
+  EbarooniCapacitorCalendar: e820c5f8f1a10372fe0f556d998c577d7df6596c
 
-PODFILE CHECKSUM: 2f964e03a1496cd8c91499bbe1a97dc5c247ecd8
+PODFILE CHECKSUM: bda9c4ccb32da6d899873740e2ff5d8b50b15098
 
 COCOAPODS: 1.15.2

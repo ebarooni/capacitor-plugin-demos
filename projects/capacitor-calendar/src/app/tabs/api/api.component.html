@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>API</ion-title>
+    <ion-buttons [slot]="'end'">
+      <ion-button
+        [size]="'small'"
+        [color]="'success'"
+        [routerLink]="'/settings/permissions'"
+      >
+        <ion-icon [slot]="'icon-only'" [name]="'shield-checkmark'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [color]="'light'">
+  <ion-header collapse="condense">
+    <ion-toolbar [color]="'light'" class="p-2">
+      <ion-title size="large">API</ion-title>
+    </ion-toolbar>
+
+    <ion-toolbar [color]="'light'">
+      <ion-searchbar
+        [showCancelButton]="'focus'"
+        (ionInput)="searchValueChanged($event)"
+      ></ion-searchbar>
+    </ion-toolbar>
+
+    <ion-toolbar [color]="'light'">
+      <div
+        *ngrxLet="storeService.platformFilter$ as platformFilter"
+        class="px-1 flex gap-1"
+      >
+        @for (platform of availablePlatforms; track $index) {
+          <ion-chip
+            class="border-solid border-1 transition-colors transition-duration-150 transition-ease-in"
+            [color]="platformFilter === platform ? 'success' : 'medium'"
+            (click)="storeService.setPlatformFilter(platform)"
+            >{{ platform }}</ion-chip
+          >
+        }
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <app-avatar-banner></app-avatar-banner>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <app-methods-list
+          *ngrxLet="{
+            platform: storeService.platformFilter$,
+            searchString: searchString$,
+          } as vm"
+          [platform]="vm.platform"
+          [searchString]="vm.searchString"
+        ></app-methods-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

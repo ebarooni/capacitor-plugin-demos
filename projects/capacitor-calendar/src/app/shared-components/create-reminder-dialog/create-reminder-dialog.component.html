@@ -1,0 +1,185 @@
+<ion-modal #modal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons [slot]="'start'">
+          <ion-button
+            [color]="'danger'"
+            (click)="dismiss(permissionModalRole.CANCEL)"
+            >Cancel</ion-button
+          >
+        </ion-buttons>
+        <ion-title>New Reminder</ion-title>
+        <ion-buttons [slot]="'end'">
+          <ion-button
+            [strong]="true"
+            [disabled]="!reminderDetailForm.controls.title.value"
+            (click)="hiddenSubmitBtn.click()"
+            >Confirm</ion-button
+          >
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content [color]="'light'">
+      <ion-grid class="py-3">
+        <form [formGroup]="reminderDetailForm" (submit)="submit($event)">
+          <ion-row>
+            <ion-col>
+              <app-base-ion-list>
+                <ion-item>
+                  <ion-input
+                    type="text"
+                    [autocapitalize]="true"
+                    [placeholder]="'Title'"
+                    [formControlName]="'title'"
+                    [clearInput]="true"
+                  ></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-input
+                    type="text"
+                    [placeholder]="'Location'"
+                    [formControlName]="'location'"
+                    [clearInput]="true"
+                  ></ion-input>
+                </ion-item>
+              </app-base-ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <app-base-ion-list>
+                <ion-item>
+                  <ion-toggle
+                    [formControlName]="'isCompleted'"
+                    [color]="'success'"
+                    >Completed</ion-toggle
+                  >
+                </ion-item>
+                <ion-item>
+                  <ion-label>Starts</ion-label>
+                  <ion-datetime-button
+                    [slot]="'end'"
+                    datetime="startDate"
+                  ></ion-datetime-button>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Due</ion-label>
+                  <ion-datetime-button
+                    [slot]="'end'"
+                    datetime="dueDate"
+                  ></ion-datetime-button>
+                </ion-item>
+              </app-base-ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngrxLet="reminderLists$ as lists">
+            <ion-col>
+              <app-base-ion-list>
+                <ion-item>
+                  <ion-label>List</ion-label>
+                  <div [slot]="'end'" class="flex gap-2 align-items-center">
+                    @if (
+                      reminderDetailForm.controls.listId.value
+                        | calendarColor: lists;
+                      as listColor
+                    ) {
+                      <div
+                        [ngStyle]="{
+                          width: '12px',
+                          height: '12px',
+                          borderRadius: '50%',
+                          backgroundColor: listColor,
+                        }"
+                      ></div>
+                    }
+                    <ion-select
+                      [formControlName]="'listId'"
+                      [interface]="'action-sheet'"
+                      aria-label="Calendar"
+                    >
+                      @for (list of lists; track $index) {
+                        <ion-select-option [value]="list.id">
+                          {{ list.title }}
+                        </ion-select-option>
+                      }
+                    </ion-select>
+                  </div>
+                </ion-item>
+              </app-base-ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <app-base-ion-list>
+                <ion-item>
+                  <ion-range
+                    [color]="'danger'"
+                    [labelPlacement]="'start'"
+                    [formControlName]="'priority'"
+                    [min]="1"
+                    [max]="9"
+                    [ticks]="true"
+                    [step]="1"
+                    [snaps]="true"
+                  >
+                    <div [slot]="'label'">Priority</div>
+                  </ion-range>
+                </ion-item>
+              </app-base-ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <app-base-ion-list>
+                <ion-item>
+                  <ion-input
+                    [placeholder]="'URL'"
+                    [formControlName]="'url'"
+                    [clearInput]="true"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea
+                    [autoGrow]="true"
+                    [autocapitalize]="true"
+                    [rows]="9"
+                    [placeholder]="'Notes'"
+                    [formControlName]="'notes'"
+                  ></ion-textarea>
+                </ion-item>
+              </app-base-ion-list>
+            </ion-col>
+          </ion-row>
+
+          <button #hiddenSubmitBtn [hidden]="true" type="submit"></button>
+
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime
+                id="startDate"
+                [formControlName]="'startDate'"
+              ></ion-datetime>
+            </ng-template>
+          </ion-modal>
+
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime
+                id="dueDate"
+                [formControlName]="'dueDate'"
+              ></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </form>
+      </ion-grid>
+    </ion-content>
+  </ng-template>
+</ion-modal>
